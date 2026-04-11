@@ -83,57 +83,85 @@
     justify-content: space-between;
     align-items: center;
   }
-  /* ===== LOGO LOCKUP ===== */
+  /* ===== LOGO LOCKUP — STACKED PORTICO + FORGE ANIMATION ===== */
   .brand {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     text-decoration: none;
   }
   .logo-mark {
-    width: 30px;
-    height: 30px;
+    width: 38px;
+    height: 49px;
     display: block;
     position: relative;
     flex-shrink: 0;
   }
-  .logo-mark svg { display: block; overflow: visible; }
-  .logo-mark .pillar {
-    fill: none;
-    stroke: var(--paper);
-    stroke-width: 1.6;
-    stroke-linecap: square;
-    stroke-dasharray: 30;
-    stroke-dashoffset: 30;
-    animation: drawPillar 0.7s ease-out forwards;
+  .logo-mark svg {
+    display: block;
+    overflow: visible;
+    width: 100%;
+    height: 100%;
   }
-  .logo-mark .pillar-1 { animation-delay: 0.15s; }
-  .logo-mark .pillar-2 { animation-delay: 0.30s; }
-  .logo-mark .pillar-3 { animation-delay: 0.45s; }
-  .logo-mark .accent {
-    fill: var(--copper);
+
+  /* All elements start invisible (in the heat we can't see them yet) */
+  .logo-mark .col,
+  .logo-mark .letter,
+  .logo-mark .copper-bar {
     opacity: 0;
-    animation: dotIn 0.5s ease-out 0.7s forwards;
   }
+
+  /* Columns: hot iron → cool to white, with copper drop-shadow that fades */
+  .logo-mark .col {
+    stroke: #ff8848;
+    fill: none;
+    stroke-linecap: square;
+    animation:
+      logoFadeIn 0.4s ease-out 0.2s forwards,
+      forgeCool  2.4s ease-out 0.4s forwards;
+  }
+  /* Fluting needs to land at opacity 0.4, not 1 */
+  .logo-mark .col.fluting {
+    animation:
+      logoFlutingIn 0.4s ease-out 0.6s forwards,
+      forgeCoolFluting 2.4s ease-out 0.8s forwards;
+  }
+  /* Letters: hot iron fill, cool to paper */
+  .logo-mark .letter {
+    fill: #ff8848;
+    animation:
+      logoFadeIn 0.4s ease-out 0.45s forwards,
+      forgeCoolFill 2.4s ease-out 0.65s forwards;
+  }
+  /* Copper rule stays copper — the only "still warm" element after the metal cools */
+  .logo-mark .copper-bar {
+    stroke: var(--copper);
+    animation: logoFadeIn 0.4s ease-out 0.85s forwards;
+  }
+
+  /* Hover: a soft copper glow returns the warmth */
   .logo-mark .glow {
     position: absolute;
-    inset: -6px;
-    background: radial-gradient(circle, rgba(201, 122, 79, 0.4) 0%, transparent 65%);
+    inset: -10px;
+    background: radial-gradient(ellipse at center, rgba(201, 122, 79, 0.42) 0%, transparent 65%);
     opacity: 0;
     z-index: -1;
-    animation: breathe 3.6s ease-in-out 1.5s infinite;
     pointer-events: none;
-    border-radius: 50%;
+    transition: opacity 0.5s ease;
   }
-  .brand:hover .glow { animation-duration: 1.6s; }
-  .brand:hover .logo-mark .pillar { stroke: var(--copper); transition: stroke 0.4s; }
+  .brand:hover .glow { opacity: 1; }
+  .brand:hover .logo-mark .col,
+  .brand:hover .logo-mark .letter {
+    filter: drop-shadow(0 0 3px rgba(201, 122, 79, 0.5));
+    transition: filter 0.4s ease;
+  }
 
   .wordmark {
     display: flex;
     align-items: baseline;
     gap: 10px;
     opacity: 0;
-    animation: fadeUp 0.7s ease-out 0.65s forwards;
+    animation: fadeUp 0.8s ease-out 1.6s forwards;
   }
   .wordmark .rh {
     font-family: 'Cormorant Garamond', serif;
@@ -158,11 +186,29 @@
     line-height: 1;
   }
 
-  @keyframes drawPillar { to { stroke-dashoffset: 0; } }
-  @keyframes dotIn { to { opacity: 1; } }
-  @keyframes breathe {
-    0%, 100% { opacity: 0.16; transform: scale(0.9); }
-    50%      { opacity: 0.5;  transform: scale(1.12); }
+  /* ===== FORGE KEYFRAMES ===== */
+  @keyframes logoFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes logoFlutingIn {
+    from { opacity: 0; }
+    to   { opacity: 0.4; }
+  }
+  @keyframes forgeCool {
+    0%   { stroke: #ff8848; filter: drop-shadow(0 0 3px rgba(255, 100, 50, 0.85)); }
+    40%  { stroke: #d4824a; filter: drop-shadow(0 0 1.5px rgba(201, 122, 79, 0.55)); }
+    100% { stroke: #f4efe6; filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); }
+  }
+  @keyframes forgeCoolFluting {
+    0%   { stroke: #ff8848; opacity: 0.4; }
+    40%  { stroke: #d4824a; opacity: 0.4; }
+    100% { stroke: #f4efe6; opacity: 0.4; }
+  }
+  @keyframes forgeCoolFill {
+    0%   { fill: #ff8848; filter: drop-shadow(0 0 3px rgba(255, 100, 50, 0.85)); }
+    40%  { fill: #d4824a; filter: drop-shadow(0 0 1.5px rgba(201, 122, 79, 0.55)); }
+    100% { fill: #f4efe6; filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); }
   }
 
   /* ===== LIGHT BEAMS (BG ANIMATION) ===== */
@@ -1119,13 +1165,29 @@
     <a href="#" class="brand">
       <span class="logo-mark">
         <span class="glow"></span>
-        <svg viewBox="0 0 30 30">
-          <!-- Three pillars: body / mind / systems -->
-          <line class="pillar pillar-1" x1="9"  y1="9"  x2="21" y2="9"/>
-          <line class="pillar pillar-2" x1="6"  y1="15" x2="24" y2="15"/>
-          <line class="pillar pillar-3" x1="3"  y1="21" x2="27" y2="21"/>
-          <!-- Copper accent dot anchoring the foundation -->
-          <circle class="accent" cx="15" cy="21" r="1.4"/>
+        <svg viewBox="0 0 100 130">
+          <!-- LEFT COLUMN -->
+          <line class="col col-l-abacus"  x1="5"  y1="14"  x2="27" y2="14"  stroke-width="2.2"/>
+          <line class="col col-l-echinus" x1="9"  y1="18"  x2="23" y2="18"  stroke-width="1.4"/>
+          <line class="col col-l-shaft"   x1="16" y1="20"  x2="16" y2="108" stroke-width="3.6"/>
+          <line class="col fluting"       x1="13" y1="24"  x2="13" y2="104" stroke-width="0.6"/>
+          <line class="col fluting"       x1="19" y1="24"  x2="19" y2="104" stroke-width="0.6"/>
+          <line class="col col-l-base1"   x1="9"  y1="110" x2="23" y2="110" stroke-width="1.4"/>
+          <line class="col col-l-base2"   x1="5"  y1="114" x2="27" y2="114" stroke-width="2.2"/>
+          <!-- RIGHT COLUMN -->
+          <line class="col col-r-abacus"  x1="73" y1="14"  x2="95" y2="14"  stroke-width="2.2"/>
+          <line class="col col-r-echinus" x1="77" y1="18"  x2="91" y2="18"  stroke-width="1.4"/>
+          <line class="col col-r-shaft"   x1="84" y1="20"  x2="84" y2="108" stroke-width="3.6"/>
+          <line class="col fluting"       x1="81" y1="24"  x2="81" y2="104" stroke-width="0.6"/>
+          <line class="col fluting"       x1="87" y1="24"  x2="87" y2="104" stroke-width="0.6"/>
+          <line class="col col-r-base1"   x1="77" y1="110" x2="91" y2="110" stroke-width="1.4"/>
+          <line class="col col-r-base2"   x1="73" y1="114" x2="95" y2="114" stroke-width="2.2"/>
+          <!-- STACKED RH WORDMARK -->
+          <text class="letter letter-r" x="50" y="60" text-anchor="middle"
+            font-family="Cormorant Garamond, serif" font-size="40" font-weight="700">R</text>
+          <line class="copper-bar" x1="32" y1="66" x2="68" y2="66" stroke-width="1.4"/>
+          <text class="letter letter-h" x="50" y="102" text-anchor="middle"
+            font-family="Cormorant Garamond, serif" font-size="40" font-weight="700">H</text>
         </svg>
       </span>
       <span class="wordmark">
