@@ -1,0 +1,9 @@
+# Internal docs — not for the public repo
+sales-call-script.md
+launch-punch-list.md
+
+# Tooling
+.claude/
+.DS_Store
+.vercel/
+node_modules/
