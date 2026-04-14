@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RH Transformation — The 15-Week Lock-In</title>
-<meta name="description" content="A 15-week 1-on-1 coaching program for men done drifting. Body, mind, and systems — rebuilt with Rylan & Hunter.">
+<title>RH Transformation — The Mind Pillar</title>
+<meta name="description" content="The Mind Pillar of RH Transformation. Identity architecture, mental frameworks, and systems design — the internal rebuild that makes everything else stick.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -198,6 +198,25 @@
     line-height: 1;
   }
 
+  /* ===== NAV LINKS ===== */
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .nav-link {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--bone);
+    text-decoration: none;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--copper);
+  }
+
   /* ===== FORGE KEYFRAMES ===== */
   @keyframes logoFadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes logoFlutingIn { from { opacity: 0; } to { opacity: 0.4; } }
@@ -269,22 +288,6 @@
     .scroll-progress { display: none; }
     .phase:nth-child(2) .phase-dot::before { animation: none; }
   }
-
-  .nav-links {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-  }
-  .nav-link {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--bone);
-    text-decoration: none;
-    transition: color 0.3s;
-    cursor: pointer;
-  }
-  .nav-link:hover, .nav-link.active { color: var(--copper); }
 
   .nav-cta {
     font-size: 11px;
@@ -465,46 +468,6 @@
     border-color: var(--line-hover);
     top: -20px; left: -20px;
   }
-  .hero-image-caption {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--bone-faint);
-    z-index: 1;
-  }
-
-  /* ===== MARQUEE ===== */
-  .strip {
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 34px 0;
-    overflow: hidden;
-    margin-top: 60px;
-    background: rgba(17, 15, 13, 0.80);
-  }
-  .strip-inner {
-    display: flex;
-    gap: 60px;
-    white-space: nowrap;
-    animation: scroll 42s linear infinite;
-    font-size: 18px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--paper);
-  }
-  .strip-inner span::before {
-    content: '\2726';
-    margin-right: 60px;
-    color: var(--copper);
-  }
-  @keyframes scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
 
   /* ===== SECTIONS ===== */
   section { padding: 120px 0; position: relative; overflow: hidden; }
@@ -542,7 +505,7 @@
     margin-bottom: 0;
   }
 
-  /* ===== STORY ===== */
+  /* ===== STORY / TWO-COL TEXT ===== */
   .story {
     background: rgba(17, 15, 13, 0.80);
     border-top: 1px solid var(--line);
@@ -572,26 +535,8 @@
     font-weight: 600;
     box-shadow: -2px 0 12px var(--copper-glow);
   }
-  .story-image { position: relative; overflow: hidden; }
-  .story-image img {
-    width: 100%;
-    height: 620px;
-    object-fit: cover;
-    filter: grayscale(18%) brightness(0.92) contrast(1.05);
-    transition: transform 6s var(--ease-out-expo);
-  }
-  .story-image:hover img { transform: scale(1.03); }
-  .story-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(10,9,8,0) 60%, rgba(10,9,8,0.5) 100%),
-                linear-gradient(180deg, rgba(201, 122, 79, 0.06), rgba(10, 9, 8, 0));
-    mix-blend-mode: multiply;
-    pointer-events: none;
-  }
 
-  /* ===== METHOD ===== */
+  /* ===== METHOD / PILLAR GRID ===== */
   .method-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -709,7 +654,6 @@
     background: var(--copper);
     border-radius: 50%;
   }
-  /* Pulse on the active/middle phase dot */
   .phase:nth-child(2) .phase-dot::before {
     content: '';
     position: absolute;
@@ -761,453 +705,42 @@
     line-height: 1.75;
     color: var(--bone);
   }
-  .phase-pull {
-    font-size: 22px;
-    line-height: 1.4;
-    letter-spacing: -0.02em;
-    color: var(--paper);
-    max-width: 820px;
-    border-left: 2px solid var(--copper);
-    padding-left: 28px;
-    font-weight: 600;
-    position: relative;
-  }
 
-  /* ===== PROOF ===== */
-  .proof-grid {
+  /* ===== BENEFITS GRID ===== */
+  .benefits-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    margin-top: 80px;
-  }
-  .proof-card {
-    border: 1px solid var(--line);
-    background: var(--bg-soft);
-    padding: 36px;
-    transition: all var(--transition-slow);
-    position: relative;
-    cursor: pointer;
-  }
-  .proof-card::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border: 1px solid transparent;
-    transition: border-color var(--transition-slow);
-    pointer-events: none;
-  }
-  .proof-card:hover {
-    border-color: var(--line-hover);
-    background: var(--bg-card);
-    box-shadow:
-      0 4px 24px rgba(0, 0, 0, 0.3),
-      0 0 0 1px var(--line-hover),
-      inset 0 1px 0 rgba(244, 239, 230, 0.04);
-  }
-  .proof-card-img-wrap {
-    position: relative;
-    margin-bottom: 30px;
-    overflow: hidden;
-  }
-  .proof-card img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    filter: grayscale(15%) brightness(0.94) contrast(1.05);
-    display: block;
-    transition: transform 6s var(--ease-out-expo);
-  }
-  .proof-card:hover img { transform: scale(1.03); }
-  .proof-card-img-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(10,9,8,0) 65%, rgba(10,9,8,0.5) 100%);
-    mix-blend-mode: multiply;
-    pointer-events: none;
-  }
-  .proof-quote {
-    font-size: 18px;
-    line-height: 1.5;
-    letter-spacing: -0.015em;
-    margin-bottom: 24px;
-    color: var(--paper);
-    font-weight: 500;
-  }
-  .proof-attr {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--copper);
-  }
-
-  /* ===== COACHES ===== */
-  .coaches-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    margin-top: 80px;
-  }
-  .coach { position: relative; }
-  .coach-img-wrap {
-    position: relative;
-    margin-bottom: 32px;
-    overflow: hidden;
-  }
-  .coach img {
-    width: 100%;
-    height: 580px;
-    object-fit: cover;
-    filter: grayscale(20%) brightness(0.92) contrast(1.05);
-    display: block;
-    transition: transform 6s var(--ease-out-expo), filter 0.6s ease;
-  }
-  .coach:hover img {
-    transform: scale(1.02);
-    filter: grayscale(8%) brightness(0.94) contrast(1.06);
-  }
-  .coach-img-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(10,9,8,0) 60%, rgba(10,9,8,0.55) 100%),
-                linear-gradient(180deg, rgba(201, 122, 79, 0.06), rgba(10, 9, 8, 0));
-    mix-blend-mode: multiply;
-    pointer-events: none;
-  }
-  .coach-name {
-    font-size: 42px;
-    font-weight: 800;
-    line-height: 0.95;
-    margin-bottom: 10px;
-    letter-spacing: -0.045em;
-    color: var(--paper);
-  }
-  .coach-role {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--copper);
-    margin-bottom: 24px;
-    font-weight: 500;
-  }
-  .coach-bio {
-    font-size: 16px;
-    line-height: 1.75;
-    color: var(--bone);
-  }
-
-  /* ===== GUARANTEE ===== */
-  .guarantee {
-    background: rgba(10, 9, 8, 0.82);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-  .guarantee-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 100px;
-    align-items: center;
-  }
-  .seal {
-    width: 320px;
-    height: 320px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .seal svg { width: 100%; height: 100%; display: block; overflow: visible; }
-  .seal .ring  { fill: none; stroke: var(--copper); stroke-width: 1; }
-  .seal .ring2 { fill: none; stroke: var(--copper); stroke-width: 0.6; opacity: 0.55; }
-  .seal-text {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  .seal-text .num {
-    font-size: 84px;
-    line-height: 1;
-    font-weight: 800;
-    color: var(--paper);
-    letter-spacing: -0.05em;
-  }
-  .seal-text .lbl {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.28em;
-    color: var(--copper);
-    margin-top: 10px;
-  }
-  .guarantee-body p {
-    font-size: 17px;
-    line-height: 1.8;
-    color: var(--bone);
-    margin-bottom: 22px;
-  }
-  .guarantee-body p strong { color: var(--paper); font-weight: 500; }
-  .guarantee-terms {
-    margin-top: 32px;
-    border-top: 1px solid var(--line);
-    padding-top: 26px;
-  }
-  .guarantee-terms h4 {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--copper);
-    margin-bottom: 20px;
-    font-weight: 500;
-  }
-  .guarantee-terms ul { list-style: none; }
-  .guarantee-terms li {
-    font-size: 15px;
-    color: var(--bone);
-    padding: 11px 0;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    transition: color var(--transition-fast);
-  }
-  .guarantee-terms li::before {
-    content: '\2726';
-    color: var(--copper);
-    font-size: 12px;
-    margin-top: 4px;
-  }
-
-  /* ===== OFFER ===== */
-  .offer {
-    background: rgba(17, 15, 13, 0.80);
-    border-top: 1px solid var(--line);
-  }
-  .offer-card {
-    margin-top: 80px;
-    background: var(--bg-card);
-    border: 1px solid var(--line-strong);
-    padding: 80px 80px 64px;
-    position: relative;
-  }
-  .offer-card::before {
-    content: '';
-    position: absolute;
-    top: 12px; left: 12px; right: -12px; bottom: -12px;
-    border: 1px solid var(--line);
-    z-index: -1;
-  }
-  /* Subtle inner glow on the offer card */
-  .offer-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 0%, rgba(201, 122, 79, 0.04) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 100%, rgba(201, 122, 79, 0.03) 0%, transparent 50%);
-    pointer-events: none;
-  }
-  .offer-header {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 60px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 48px;
-    margin-bottom: 56px;
-    align-items: end;
-    position: relative;
-    z-index: 1;
-  }
-  .offer-name {
-    font-size: 56px;
-    line-height: 0.95;
-    letter-spacing: -0.045em;
-    margin-bottom: 16px;
-    font-weight: 800;
-    color: var(--paper);
-  }
-  .offer-tag {
-    color: var(--bone);
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: -0.005em;
-  }
-  .offer-price { text-align: right; position: relative; z-index: 1; }
-  .offer-price .num {
-    font-size: 68px;
-    line-height: 0.95;
-    color: var(--paper);
-    letter-spacing: -0.05em;
-    font-weight: 800;
-  }
-  .offer-price .week {
-    color: var(--copper);
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 600;
-    margin-top: 12px;
-  }
-  .offer-price .denom {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--bone-faint);
-    margin-top: 8px;
-  }
-  .offer-takeout {
-    font-size: 19px;
-    line-height: 1.5;
-    letter-spacing: -0.015em;
-    color: var(--paper);
-    border-left: 2px solid var(--copper);
-    padding-left: 28px;
-    margin-bottom: 56px;
-    max-width: 880px;
-    font-weight: 500;
-    position: relative;
-    z-index: 1;
-  }
-  .offer-includes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px 80px;
-    margin-bottom: 56px;
-    position: relative;
-    z-index: 1;
-  }
-  .offer-includes h4 {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--copper);
-    margin-bottom: 20px;
-    font-weight: 500;
-  }
-  .offer-includes ul { list-style: none; }
-  .offer-includes li {
-    font-size: 15px;
-    color: var(--bone);
-    padding: 10px 0;
-    display: flex;
-    gap: 12px;
-  }
-  .offer-includes li::before {
-    content: '\2726';
-    color: var(--copper);
-    font-size: 12px;
-    margin-top: 4px;
-  }
-  .scarcity {
-    background: var(--bg);
-    border: 1px solid var(--line-strong);
-    color: var(--paper);
-    padding: 28px 36px;
-    margin-bottom: 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    line-height: 1.55;
-    gap: 32px;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-  }
-  .scarcity::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, var(--copper), var(--copper-deep));
-  }
-  .scarcity .num {
-    font-size: 36px;
-    color: var(--copper);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    flex-shrink: 0;
-  }
-  .app-fee {
-    font-size: 13px;
-    color: var(--bone-faint);
-    margin-bottom: 32px;
-    line-height: 1.65;
-    position: relative;
-    z-index: 1;
-  }
-  .app-fee strong { color: var(--paper); font-weight: 500; }
-  .offer-cta-row {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ===== FAQ ===== */
-  .faq-list {
+    gap: 0;
     margin-top: 60px;
     border-top: 1px solid var(--line);
   }
-  .faq-item {
+  .benefit-item {
+    padding: 28px 32px;
     border-bottom: 1px solid var(--line);
-    padding: 36px 0;
-    cursor: pointer;
-    transition: background var(--transition-fast);
-  }
-  .faq-item:hover { background: rgba(244, 239, 230, 0.015); }
-  .faq-q {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 22px;
-    color: var(--paper);
-    transition: color var(--transition-fast);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    gap: 32px;
-  }
-  .faq-item:hover .faq-q { color: var(--copper); }
-  .faq-toggle {
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--line-strong);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: all var(--transition-med);
-    position: relative;
-  }
-  .faq-toggle::before,
-  .faq-toggle::after {
-    content: '';
-    position: absolute;
-    background: var(--copper);
-    transition: transform var(--transition-med);
-  }
-  .faq-toggle::before { width: 14px; height: 1px; }
-  .faq-toggle::after { width: 1px; height: 14px; }
-  .faq-item.open .faq-toggle { border-color: var(--copper); transform: rotate(45deg); }
-  .faq-a {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.55s var(--ease-out-expo), padding 0.55s var(--ease-out-expo);
-    color: var(--bone);
     font-size: 16px;
-    line-height: 1.8;
-    max-width: 760px;
+    line-height: 1.65;
+    color: var(--bone);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: color var(--transition-fast), background var(--transition-fast);
   }
-  .faq-item.open .faq-a {
-    max-height: 360px;
-    padding-top: 22px;
+  .benefit-item:nth-child(odd) {
+    border-right: 1px solid var(--line);
+  }
+  .benefit-item::before {
+    content: '\2726';
+    color: var(--copper);
+    font-size: 12px;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .benefit-item:hover {
+    color: var(--paper);
+    background: rgba(201, 122, 79, 0.03);
   }
 
-  /* ===== FINAL ===== */
+  /* ===== FINAL CTA ===== */
   .final {
     background: rgba(10, 9, 8, 0.82);
     color: var(--paper);
@@ -1231,7 +764,6 @@
     letter-spacing: -0.08em;
     pointer-events: none;
   }
-  /* Gradient mesh on the final section for depth */
   .final::after {
     content: '';
     position: absolute;
@@ -1325,7 +857,6 @@
     background: linear-gradient(180deg, rgba(156, 88, 50, 0.4) 0%, rgba(201, 122, 79, 0.7) 70%, #ff8848 95%, #ffaa66 100%);
     box-shadow: 0 0 8px rgba(201, 122, 79, 0.4), 0 0 14px rgba(201, 122, 79, 0.2);
   }
-  /* The burning ember tip */
   .scroll-progress-glow {
     position: absolute;
     left: 50%;
@@ -1358,7 +889,6 @@
     0%   { opacity: 0.6; transform: scale(1.1); }
     100% { opacity: 1; transform: scale(0.7); }
   }
-  /* Smoke wisps trailing below the ember */
   .scroll-progress-smoke {
     position: absolute;
     left: 50%;
@@ -1418,7 +948,6 @@
   }
 
   /* ===== AMBIENT GLOW BLOBS ===== */
-  /* ===== SECTION GLOW BLOBS (scroll with content) ===== */
   .sblob {
     position: absolute;
     border-radius: 50%;
@@ -1461,7 +990,6 @@
     z-index: 5;
     overflow: visible;
   }
-  /* Permanent residue line after sweep */
   .molten-residue {
     position: absolute;
     inset: 0;
@@ -1511,12 +1039,10 @@
     50%  { transform: scaleX(1); opacity: 1; }
     100% { transform: scaleX(1); opacity: 1; }
   }
-  /* After animation ends, lines stay at their final state (forwards fill) with full opacity */
   .molten-divider.fired::before,
   .molten-divider.fired::after {
     box-shadow: 0 0 8px rgba(255, 136, 72, 0.4), 0 0 18px rgba(201, 122, 79, 0.25);
   }
-  /* Center ignition point */
   .molten-dot {
     position: absolute;
     top: 50%;
@@ -1544,7 +1070,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* Staggered reveal system */
   .reveal {
     opacity: 0;
     transform: translateY(44px);
@@ -1554,13 +1079,11 @@
     opacity: 1;
     transform: translateY(0);
   }
-  /* Stagger children inside reveal groups */
   .reveal-group .reveal:nth-child(1) { transition-delay: 0s; }
   .reveal-group .reveal:nth-child(2) { transition-delay: 0.12s; }
   .reveal-group .reveal:nth-child(3) { transition-delay: 0.24s; }
   .reveal-group .reveal:nth-child(4) { transition-delay: 0.36s; }
 
-  /* Horizontal slide in variation */
   .reveal-left {
     opacity: 0;
     transform: translateX(-32px);
@@ -1585,12 +1108,13 @@
     .container { padding: 0 24px; }
     nav { padding: 0 24px; }
     .nav-inner { height: 64px; }
+    .nav-links { display: none; }
     section { padding: 80px 0; }
     .hero { padding: 140px 0 80px; min-height: auto; }
     .hero h1 { font-size: clamp(36px, 8vw, 56px); letter-spacing: -0.04em; }
     .hero-sub { font-size: 16px; }
     .section-title { font-size: clamp(32px, 7vw, 48px); }
-    .hero-grid, .story-grid, .proof-grid, .coaches-grid, .method-grid, .phase-grid, .offer-includes, .offer-header, .guarantee-grid {
+    .hero-grid, .story-grid, .method-grid, .phase-grid, .benefits-grid {
       grid-template-columns: 1fr;
       gap: 50px;
     }
@@ -1603,25 +1127,17 @@
     }
     .pillar::after { display: none; }
     .pillar:last-child, .phase:last-child { border-bottom: none; }
-    .hero-image img, .story-image img { height: 440px; }
-    .proof-card img { height: 400px; }
-    .coach img { height: 460px; }
-    .offer-card { padding: 44px 28px; }
-    .offer-price { text-align: left; }
-    .offer-price .num { font-size: 52px; }
-    .offer-name { font-size: 40px; }
-    .offer-cta-row, .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 22px; }
-    .scarcity { flex-direction: column; gap: 14px; text-align: left; align-items: flex-start; }
+    .hero-image img { height: 440px; }
+    .benefits-grid { gap: 0; }
+    .benefit-item { border-right: none !important; }
+    .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 22px; }
     .final::before { font-size: 320px; }
     .final { padding: 120px 0; }
     .final h2 { font-size: clamp(36px, 8vw, 56px); }
-    .seal { width: 240px; height: 240px; }
-    .seal-text .num { font-size: 72px; }
-    .pillar-title, .coach-name { font-size: 36px; }
+    .pillar-title { font-size: 36px; }
     .phase-title { font-size: 32px; }
     .btn { padding: 18px 36px; width: 100%; text-align: center; }
     .nav-cta { padding: 10px 18px; font-size: 10px; }
-    .nav-links { display: none; }
     .wordmark .label { display: none; }
     .wordmark .divider { display: none; }
     .scroll-progress { left: 0; }
@@ -1635,15 +1151,8 @@
     .hero-sub { font-size: 15px; margin-bottom: 36px; }
     section { padding: 80px 0; }
     .story-text .pull { font-size: 19px; }
-    .proof-card { padding: 24px; }
-    .proof-card img { height: 320px; }
-    .proof-quote { font-size: 16px; }
-    .coach img { height: 380px; }
-    .faq-q { font-size: 18px; }
-    .offer-card { padding: 32px 20px; }
-    .offer-name { font-size: 32px; }
-    .offer-price .num { font-size: 44px; }
-    .offer-takeout { font-size: 16px; }
+    .benefit-item { font-size: 15px; padding: 22px 20px; }
+    .phase-body { font-size: 14px; }
   }
 </style>
 </head>
@@ -1658,7 +1167,7 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="#" class="brand">
+    <a href="index.html" class="brand">
       <span class="logo-mark">
         <span class="glow"></span>
         <svg viewBox="0 0 100 130">
@@ -1693,9 +1202,9 @@
       </span>
     </a>
     <div class="nav-links">
-      <a href="index.html" class="nav-link active">Home</a>
+      <a href="index.html" class="nav-link">Home</a>
       <a href="fitness.html" class="nav-link">Fitness</a>
-      <a href="mindset.html" class="nav-link">Mindset</a>
+      <a href="mindset.html" class="nav-link active">Mindset</a>
       <a href="testimonials.html" class="nav-link">Testimonials</a>
     </div>
     <a href="https://calendly.com/unlockaxia/30min" target="_blank" class="nav-cta">Book a Call</a>
@@ -1712,58 +1221,47 @@
 
 <!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="sblob sblob-a" style="width:400px;height:400px;top:-10%;right:-5%;opacity:0.4;"></div>
-  <div class="sblob sblob-b" style="width:350px;height:350px;bottom:5%;left:-8%;opacity:0.55;"></div>
-  <div class="sblob sblob-c" style="width:300px;height:300px;top:30%;left:70%;opacity:0.3;"></div>
-  <div class="sblob sblob-d" style="width:280px;height:280px;bottom:20%;right:60%;opacity:0.45;"></div>
+  <div class="sblob sblob-a" style="width:400px;height:400px;top:-10%;right:-5%;opacity:0.45;"></div>
+  <div class="sblob sblob-b" style="width:350px;height:350px;bottom:5%;left:-8%;opacity:0.50;"></div>
   <canvas class="ember-canvas" aria-hidden="true"></canvas>
   <div class="container">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow">The 15-Week Lock-In</div>
-        <h1>Stop drifting. Start <em>building</em> the man you said you'd be.</h1>
-        <p class="hero-sub">RH Transformation is a 1-on-1 coaching program for men 18&ndash;40 who are tired of starting over. <strong>Body, mind, and systems</strong> &mdash; rebuilt over 15 weeks with two coaches in your corner every single week.</p>
+        <div class="eyebrow">The Mind Pillar</div>
+        <h1>The body follows the mind. It's time to <em>sharpen the blade.</em></h1>
+        <p class="hero-sub">The internal transformation is the part most coaching programs skip &mdash; and it's the part that makes everything else stick. <strong>Identity, frameworks, and systems</strong> &mdash; this is where the real rebuild happens.</p>
         <div class="hero-cta-row">
           <a href="https://calendly.com/unlockaxia/30min" target="_blank" class="btn">Book Your Call</a>
-          <a href="#method" class="btn-ghost">See the Method</a>
+          <a href="#problem" class="btn-ghost">See the Problem</a>
         </div>
       </div>
       <div class="hero-image">
-        <img src="images/rylan-marathon.jpg" alt="Rylan after the Santa Rosa marathon">
-        <div class="hero-image-caption">Santa Rosa, 2024</div>
+        <img src="images/hunter.jpg" alt="Hunter — Mind & Systems Coach">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== MARQUEE ===== -->
-<div class="strip">
-  <div class="strip-inner">
-    <span>Body</span><span>Mind</span><span>Systems</span><span>Discipline</span><span>Accountability</span><span>Brotherhood</span>
-    <span>Body</span><span>Mind</span><span>Systems</span><span>Discipline</span><span>Accountability</span><span>Brotherhood</span>
-  </div>
-</div>
-
 <div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
 
-<!-- ===== STORY ===== -->
-<section class="story">
+<!-- ===== THE REAL PROBLEM ===== -->
+<section class="story" id="problem">
   <div class="sblob sblob-c" style="width:450px;height:450px;top:-15%;right:-10%;opacity:0.55;"></div>
   <div class="sblob sblob-a" style="width:380px;height:380px;bottom:-10%;left:-5%;opacity:0.50;"></div>
   <div class="sblob sblob-d" style="width:300px;height:300px;top:40%;right:60%;opacity:0.45;"></div>
   <div class="sblob sblob-b" style="width:260px;height:260px;top:15%;left:75%;opacity:0.45;"></div>
-  <div class="sblob sblob-a" style="width:340px;height:340px;bottom:25%;right:80%;opacity:0.45;animation-delay:-12s;"></div>
   <div class="container">
     <div class="story-grid">
       <div class="story-text reveal-left">
-        <div class="section-label">Why You're Here</div>
-        <h2 class="section-title">You don't need <em>more information.</em> You need a system.</h2>
-        <p>You've read the books. Watched the videos. Started the routine on a Monday and quit by Thursday. You're not broken &mdash; you're scattered. <strong>Capable, frustrated, and tired of being the guy who almost did it.</strong></p>
-        <div class="pull">"Every man you admire didn't have more talent. He had a system, a standard, and someone who held him to it."</div>
-        <p>That's what RH is. Not motivation. Not another PDF. A 15-week structure with two coaches who design your days, train your body, sharpen your mind, and check on you when you'd rather quit.</p>
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">You're not lazy. Your <em>operating system</em> is broken.</h2>
+        <p>Men stay stuck not because of effort &mdash; but because of identity. You can't outwork a broken operating system. <strong>You keep defaulting to the same patterns</strong> because nobody ever rewired the source code. The same beliefs, the same stories, the same defaults running in the background &mdash; producing the same results.</p>
+        <p>Every failed attempt at change wasn't a failure of discipline. It was a failure of architecture. You were running new software on an old machine, and it crashed every time. <strong>The problem isn't what you're doing &mdash; it's who you believe you are while you're doing it.</strong></p>
       </div>
-      <div class="story-image reveal-right">
-        <img src="images/rylan-running.jpg" alt="On the road" loading="lazy">
+      <div class="story-text reveal-right">
+        <div class="pull">"You don't rise to the level of your goals. You fall to the level of your systems."</div>
+        <p>Old beliefs keep you anchored to the man you were. Old stories keep you reacting instead of choosing. Old defaults keep you comfortable when comfort is the last thing you need. Until you go in and rewrite the code, <strong>every external change is temporary.</strong></p>
+        <p>This pillar exists because Hunter has watched men transform their bodies and lose it all three months later &mdash; because the mind never changed. The internal rebuild is not optional. It's the foundation that holds everything else in place.</p>
       </div>
     </div>
   </div>
@@ -1771,60 +1269,186 @@
 
 <div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
 
-<!-- ===== METHOD ===== -->
-<section id="method">
+<!-- ===== IDENTITY WORK ===== -->
+<section id="identity">
   <div class="sblob sblob-b" style="width:420px;height:420px;top:-10%;left:-8%;opacity:0.55;"></div>
   <div class="sblob sblob-d" style="width:350px;height:350px;bottom:-5%;right:-6%;opacity:0.50;"></div>
   <div class="sblob sblob-a" style="width:280px;height:280px;top:50%;right:70%;opacity:0.45;"></div>
   <div class="sblob sblob-c" style="width:300px;height:300px;top:20%;right:80%;opacity:0.45;animation-delay:-10s;"></div>
-  <div class="sblob sblob-b" style="width:260px;height:260px;bottom:30%;left:75%;opacity:0.45;animation-delay:-25s;"></div>
   <div class="container">
     <div class="reveal">
-      <div class="section-label">The Method</div>
-      <h2 class="section-title">Three pillars. <em>One man rebuilt.</em></h2>
-      <p class="section-lead">Most coaching programs hand you a workout and call it a transformation. RH works on the three things that actually move a life forward &mdash; and how they reinforce each other.</p>
+      <div class="section-label">Identity Architecture</div>
+      <h2 class="section-title">Who are you <em>becoming?</em></h2>
+      <p class="section-lead" style="margin-bottom:28px;">This isn't about affirmations taped to a bathroom mirror. It's architecture. Vision casting, values clarification, identity design &mdash; building the internal blueprint of the man you're building toward. You don't stumble into the person you need to be. You design him deliberately, and then you install the defaults that make him automatic.</p>
+      <p class="section-lead">This is about designing the default mode of the person you need to be. When your identity is clear, decisions get simple. Discipline becomes less about willpower and more about alignment. You stop fighting yourself because the man you're building toward and the man making daily choices are finally the same person. That's what identity architecture creates &mdash; internal coherence that external circumstances can't shake.</p>
+    </div>
+  </div>
+</section>
+
+<div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
+
+<!-- ===== MENTAL FRAMEWORKS ===== -->
+<section class="story" id="frameworks">
+  <div class="sblob sblob-a" style="width:500px;height:500px;top:-12%;right:-8%;opacity:0.55;"></div>
+  <div class="sblob sblob-c" style="width:400px;height:400px;bottom:-10%;left:-6%;opacity:0.50;"></div>
+  <div class="sblob sblob-b" style="width:320px;height:320px;top:30%;left:80%;opacity:0.45;"></div>
+  <div class="sblob sblob-d" style="width:280px;height:280px;top:60%;right:75%;opacity:0.45;animation-delay:-20s;"></div>
+  <div class="sblob sblob-a" style="width:350px;height:350px;top:10%;left:65%;opacity:0.45;animation-delay:-30s;"></div>
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Mental Frameworks</div>
+      <h2 class="section-title">Practical tools for <em>dismantling average.</em></h2>
+      <p class="section-lead">Not self-help fluff. Not motivational quotes on a slideshow. Practical, battle-tested tools &mdash; stoic principles, systems thinking, emotional regulation. Each book assigned with purpose. Each exercise designed to break a specific pattern.</p>
     </div>
 
     <div class="method-grid reveal-group">
       <div class="pillar reveal">
         <div class="pillar-num">&mdash; I &mdash;</div>
-        <h3 class="pillar-title">Body</h3>
-        <em class="pillar-italic">Train the temple.</em>
+        <h3 class="pillar-title">Reading</h3>
+        <em class="pillar-italic">Feed the mind.</em>
         <ul>
-          <li>Custom fitness plan</li>
-          <li>Personalized nutrition plan</li>
-          <li>Weekly 1-on-1 calls with Rylan</li>
-          <li>Form, recovery, progression</li>
+          <li>Curated book list, not random</li>
+          <li>Each book assigned with purpose</li>
+          <li>Discussion in weekly calls</li>
+          <li>Compound growth that lasts decades</li>
         </ul>
       </div>
       <div class="pillar reveal">
         <div class="pillar-num">&mdash; II &mdash;</div>
-        <h3 class="pillar-title">Mind</h3>
-        <em class="pillar-italic">Sharpen the blade.</em>
+        <h3 class="pillar-title">Exercises</h3>
+        <em class="pillar-italic">Break the pattern.</em>
         <ul>
-          <li>Curated reading plan</li>
-          <li>Mental exercises &amp; reframes</li>
-          <li>Weekly mindset calls with Hunter</li>
-          <li>Vision &amp; identity work</li>
+          <li>Cognitive reframes</li>
+          <li>Pattern interrupts</li>
+          <li>Journaling protocols</li>
+          <li>Real-time application</li>
         </ul>
       </div>
       <div class="pillar reveal">
         <div class="pillar-num">&mdash; III &mdash;</div>
-        <h3 class="pillar-title">Systems</h3>
-        <em class="pillar-italic">Build the cage.</em>
+        <h3 class="pillar-title">Principles</h3>
+        <em class="pillar-italic">Own the operating system.</em>
         <ul>
-          <li>Daily structure &amp; schedules</li>
-          <li>Accountability check-ins</li>
-          <li>Habit installation</li>
-          <li>Resistance-point game-planning</li>
+          <li>Stoic philosophy applied</li>
+          <li>Systems thinking</li>
+          <li>Emotional regulation under pressure</li>
+          <li>Decision-making frameworks</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== PHASE ARC ===== -->
-<section class="phases">
+<div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
+
+<!-- ===== SYSTEMS DESIGN ===== -->
+<section id="systems">
+  <div class="sblob sblob-d" style="width:450px;height:450px;top:-8%;right:-5%;opacity:0.55;"></div>
+  <div class="sblob sblob-b" style="width:380px;height:380px;bottom:-12%;left:-7%;opacity:0.50;"></div>
+  <div class="sblob sblob-a" style="width:320px;height:320px;top:35%;left:75%;opacity:0.45;"></div>
+  <div class="sblob sblob-c" style="width:260px;height:260px;bottom:25%;right:65%;opacity:0.45;"></div>
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Systems Design</div>
+      <h2 class="section-title">Build the cage that <em>holds discipline</em> in place.</h2>
+      <p class="section-lead" style="margin-bottom:28px;">Daily structure, habit installation, schedule architecture, resistance-point game-planning. This is about building the external scaffolding that holds you accountable when motivation disappears. Your environment, your schedule, your triggers &mdash; all engineered to make the right choice the easy choice.</p>
+      <p class="section-lead" style="margin-bottom:0;">Most men rely on willpower, and willpower is a depleting resource. Systems don't deplete. They run whether you feel like it or not. Hunter designs the architecture of your days so that discipline becomes structural, not emotional. When the system is right, showing up stops being a decision and starts being a default.</p>
+    </div>
+    <div class="reveal" style="margin-top:48px;">
+      <div class="story-text">
+        <div class="pull">"Motivation is a spark. Systems are the furnace."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
+
+<!-- ===== WEEKLY RHYTHM ===== -->
+<section class="story" id="rhythm">
+  <div class="sblob sblob-a" style="width:500px;height:500px;top:-12%;right:-8%;opacity:0.55;"></div>
+  <div class="sblob sblob-c" style="width:400px;height:400px;bottom:-10%;left:-6%;opacity:0.50;"></div>
+  <div class="sblob sblob-b" style="width:320px;height:320px;top:30%;left:80%;opacity:0.45;"></div>
+  <div class="sblob sblob-d" style="width:280px;height:280px;top:60%;right:75%;opacity:0.45;animation-delay:-20s;"></div>
+  <div class="sblob sblob-a" style="width:350px;height:350px;top:10%;left:65%;opacity:0.45;animation-delay:-30s;"></div>
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Your Week</div>
+      <h2 class="section-title">What a week with <em>Hunter</em> actually looks like.</h2>
+      <p class="section-lead">Every week is structured, intentional, and designed to compound. Here's what you get inside the mind and systems pillar.</p>
+    </div>
+
+    <div class="method-grid reveal-group">
+      <div class="pillar reveal">
+        <div class="pillar-num">&mdash; I &mdash;</div>
+        <h3 class="pillar-title">Mindset</h3>
+        <em class="pillar-italic">Sharpen the blade.</em>
+        <ul>
+          <li>Weekly 1-on-1 call with Hunter</li>
+          <li>Vision check-ins</li>
+          <li>Identity alignment</li>
+          <li>Cognitive reframe practice</li>
+        </ul>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">&mdash; II &mdash;</div>
+        <h3 class="pillar-title">Systems</h3>
+        <em class="pillar-italic">Build the cage.</em>
+        <ul>
+          <li>Daily structure review</li>
+          <li>Habit tracking</li>
+          <li>Resistance-point planning</li>
+          <li>Schedule optimization</li>
+        </ul>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">&mdash; III &mdash;</div>
+        <h3 class="pillar-title">Growth</h3>
+        <em class="pillar-italic">Compound the gains.</em>
+        <ul>
+          <li>Reading assignments</li>
+          <li>Journaling prompts</li>
+          <li>Cognitive exercises</li>
+          <li>Weekly reflection protocol</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
+
+<!-- ===== BENEFITS ===== -->
+<section id="benefits">
+  <div class="sblob sblob-b" style="width:420px;height:420px;top:-10%;left:-8%;opacity:0.55;"></div>
+  <div class="sblob sblob-d" style="width:350px;height:350px;bottom:-5%;right:-6%;opacity:0.50;"></div>
+  <div class="sblob sblob-a" style="width:280px;height:280px;top:50%;right:70%;opacity:0.45;"></div>
+  <div class="sblob sblob-c" style="width:300px;height:300px;top:20%;right:80%;opacity:0.45;animation-delay:-10s;"></div>
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">What You Gain</div>
+      <h2 class="section-title">Every benefit of the <em>internal rebuild.</em></h2>
+    </div>
+
+    <div class="benefits-grid reveal">
+      <div class="benefit-item">Clarity on who you're becoming and why it matters</div>
+      <div class="benefit-item">Elimination of decision fatigue through systems</div>
+      <div class="benefit-item">Emotional regulation under pressure &mdash; at work, at home, everywhere</div>
+      <div class="benefit-item">Discipline that doesn't depend on motivation</div>
+      <div class="benefit-item">A reading and growth habit that compounds for decades</div>
+      <div class="benefit-item">Self-awareness that prevents self-sabotage before it starts</div>
+      <div class="benefit-item">Confidence from internal alignment, not external validation</div>
+      <div class="benefit-item">A daily structure that creates margin, not chaos</div>
+      <div class="benefit-item">Accountability that actually works &mdash; not an app, a person</div>
+      <div class="benefit-item">Mental resilience that handles setbacks without spiraling</div>
+    </div>
+  </div>
+</section>
+
+<div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
+
+<!-- ===== PHASE BREAKDOWN ===== -->
+<section class="phases" id="phases">
   <div class="sblob sblob-a" style="width:500px;height:500px;top:-12%;right:-8%;opacity:0.55;"></div>
   <div class="sblob sblob-c" style="width:400px;height:400px;bottom:-10%;left:-6%;opacity:0.50;"></div>
   <div class="sblob sblob-b" style="width:320px;height:320px;top:30%;left:80%;opacity:0.45;"></div>
@@ -1833,8 +1457,8 @@
   <div class="container">
     <div class="reveal">
       <div class="section-label">The Arc</div>
-      <h2 class="section-title">15 weeks. <em>Three phases.</em> One man who doesn't need us anymore.</h2>
-      <p class="section-lead">Most programs run 12 weeks because that's how long it takes to see a change in the mirror. We run 15 because that's how long it takes for the change to outlive the program.</p>
+      <h2 class="section-title">How the mind <em>sharpens</em> across 15 weeks.</h2>
+      <p class="section-lead">Three phases. Each one builds on the last. By the end, the operating system runs on its own.</p>
     </div>
 
     <div class="phase-grid reveal-group">
@@ -1843,297 +1467,41 @@
         <div class="phase-num">&mdash; Phase I &mdash;</div>
         <div class="phase-weeks">Weeks 1&ndash;5</div>
         <h3 class="phase-title">Foundation</h3>
-        <em class="phase-tag">Strip it down.</em>
-        <p class="phase-body">Assessment, baseline, and the install. We find the energy leaks and plug them. The goal isn't intensity &mdash; it's consistency. The man you build in week six is built on what you stop tolerating in week one.</p>
+        <em class="phase-tag">Map the terrain.</em>
+        <p class="phase-body">Identity assessment, belief audit, vision casting, systems baseline. Understanding where you are and designing where you're going. This is where Hunter maps the internal landscape &mdash; the stories, the defaults, the resistance points &mdash; and begins building the blueprint for who you're becoming.</p>
       </div>
       <div class="phase reveal">
         <div class="phase-dot"></div>
         <div class="phase-num">&mdash; Phase II &mdash;</div>
         <div class="phase-weeks">Weeks 6&ndash;12</div>
         <h3 class="phase-title">Forge</h3>
-        <em class="phase-tag">Build it back.</em>
-        <p class="phase-body">Heaviest coaching load. The body changes. The mind sharpens. Discipline gets installed not through willpower but through the structure that's now holding you. This is the work most men never do.</p>
+        <em class="phase-tag">Rewire the defaults.</em>
+        <p class="phase-body">Deep pattern work, advanced frameworks, systems under load. This is where the internal shift becomes irreversible. The cognitive reframes are practiced under real pressure. The systems are stress-tested. The identity you designed in Phase I starts running automatically.</p>
       </div>
       <div class="phase reveal">
         <div class="phase-dot"></div>
         <div class="phase-num">&mdash; Phase III &mdash;</div>
         <div class="phase-weeks">Weeks 13&ndash;15</div>
         <h3 class="phase-title">Freedom</h3>
-        <em class="phase-tag">Run it yourself.</em>
-        <p class="phase-body">We step back on purpose. You execute the system without hand-holding while we're still in your corner if it cracks. You graduate into the man who doesn't need RH &mdash; which is the only kind we want to build.</p>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <div class="phase-pull">"We run 15 because that's how long it takes for the change to outlive the program."</div>
-    </div>
-  </div>
-</section>
-
-<div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
-
-<!-- ===== PROOF ===== -->
-<section>
-  <div class="sblob sblob-d" style="width:450px;height:450px;top:-8%;right:-5%;opacity:0.55;"></div>
-  <div class="sblob sblob-b" style="width:380px;height:380px;bottom:-12%;left:-7%;opacity:0.50;"></div>
-  <div class="sblob sblob-a" style="width:320px;height:320px;top:35%;left:75%;opacity:0.45;"></div>
-  <div class="sblob sblob-c" style="width:260px;height:260px;bottom:25%;right:65%;opacity:0.45;"></div>
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">The Proof</div>
-      <h2 class="section-title">Real men. <em>Real change.</em></h2>
-      <p class="section-lead">These aren't models. They're guys who got tired of waiting and put in the work &mdash; with a coach who didn't let them coast.</p>
-    </div>
-
-    <div class="proof-grid reveal-group">
-      <div class="proof-card reveal">
-        <div class="proof-card-img-wrap">
-          <img src="images/transformation-1.jpg" alt="Ehsan's transformation" loading="lazy">
-        </div>
-        <p class="proof-quote">"My client Ehsan was able to get into the best shape of his life through a structured training program focused on controlled reps to failure and aesthetic muscle groups."</p>
-        <div class="proof-attr">&mdash; Rylan, on his client Ehsan</div>
-      </div>
-      <div class="proof-card reveal">
-        <div class="proof-card-img-wrap">
-          <img src="images/transformation-2.jpg" alt="Client transformation" loading="lazy">
-        </div>
-        <p class="proof-quote">"Proof the work translates at any age. The same system that builds 25-year-olds rebuilds 45-year-olds &mdash; when the man shows up."</p>
-        <div class="proof-attr">&mdash; RH Coaching</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== COACHES ===== -->
-<section>
-  <div class="sblob sblob-a" style="width:400px;height:400px;top:-10%;left:-6%;opacity:0.55;"></div>
-  <div class="sblob sblob-c" style="width:350px;height:350px;bottom:-8%;right:-5%;opacity:0.50;"></div>
-  <div class="sblob sblob-d" style="width:280px;height:280px;top:40%;right:75%;opacity:0.45;"></div>
-  <div class="sblob sblob-b" style="width:320px;height:320px;top:10%;right:65%;opacity:0.45;animation-delay:-18s;"></div>
-  <div class="sblob sblob-c" style="width:260px;height:260px;bottom:20%;left:70%;opacity:0.45;animation-delay:-8s;"></div>
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">Your Coaches</div>
-      <h2 class="section-title">Two men. <em>Two disciplines.</em> One mission.</h2>
-      <p class="section-lead">You don't get a chatbot. You don't get a template. You get Rylan and Hunter &mdash; both of us, every week.</p>
-    </div>
-
-    <div class="coaches-grid reveal-group">
-      <div class="coach reveal">
-        <div class="coach-img-wrap">
-          <img src="images/rylan-physique.jpg" alt="Rylan" loading="lazy">
-        </div>
-        <h3 class="coach-name">Rylan</h3>
-        <div class="coach-role">Body &amp; Performance</div>
-        <p class="coach-bio">Marathon finisher, lifelong athlete, and the guy in your corner for the physical rebuild. Rylan designs the training, the nutrition, and the day-to-day discipline that turns intention into a body you're proud of.</p>
-      </div>
-      <div class="coach reveal">
-        <div class="coach-img-wrap">
-          <img src="images/hunter.jpg" alt="Hunter" loading="lazy">
-        </div>
-        <h3 class="coach-name">Hunter</h3>
-        <div class="coach-role">Mind &amp; Systems</div>
-        <p class="coach-bio">Hunter handles the inner game &mdash; vision, identity, reading, reframing, and the daily systems most men never build. Where Rylan trains the body, Hunter trains the mind that has to show up for it.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== GUARANTEE ===== -->
-<section class="guarantee">
-  <div class="sblob sblob-b" style="width:480px;height:480px;top:-15%;right:-10%;opacity:0.55;"></div>
-  <div class="sblob sblob-a" style="width:360px;height:360px;bottom:-10%;left:-8%;opacity:0.50;"></div>
-  <div class="sblob sblob-c" style="width:300px;height:300px;top:20%;left:65%;opacity:0.45;"></div>
-  <div class="sblob sblob-d" style="width:250px;height:250px;bottom:15%;right:70%;opacity:0.45;"></div>
-  <div class="container">
-    <div class="guarantee-grid">
-      <div class="reveal">
-        <div class="seal">
-          <svg viewBox="0 0 200 200">
-            <circle class="ring"  cx="100" cy="100" r="92"/>
-            <circle class="ring2" cx="100" cy="100" r="82"/>
-            <circle class="ring2" cx="100" cy="100" r="72"/>
-          </svg>
-          <div class="seal-text">
-            <div class="num">100<span style="font-size:42px;">%</span></div>
-            <div class="lbl">Or Your Money Back</div>
-          </div>
-        </div>
-      </div>
-      <div class="guarantee-body reveal">
-        <div class="section-label">The Guarantee</div>
-        <h2 class="section-title">Do <em>the work.</em> Get the change. Or get every dollar back.</h2>
-        <p>We're not interested in selling you hope. If you do the work as prescribed and you don't walk out of week 15 a different man &mdash; body, mind, and systems &mdash; we refund every dollar. No clauses, no recovery period, no "you didn't try hard enough."</p>
-        <div class="guarantee-terms">
-          <h4>Doing the work means</h4>
-          <ul>
-            <li>Every weekly call attended (one with Rylan, one with Hunter)</li>
-            <li>80% or higher on daily check-ins for all 15 weeks</li>
-            <li>Plan followed as prescribed &mdash; training, nutrition, and systems</li>
-          </ul>
-        </div>
+        <em class="phase-tag">Own the operating system.</em>
+        <p class="phase-body">Independent execution, self-coaching introduction, Hunter steps back while you prove the new OS runs on its own. You make decisions, manage setbacks, and maintain discipline without anyone holding you to it. That's the graduation &mdash; not a certificate, but proof.</p>
       </div>
     </div>
   </div>
 </section>
 
 <div class="molten-divider" aria-hidden="true"><span class="molten-dot"></span><span class="molten-residue"></span></div>
-
-<!-- ===== OFFER ===== -->
-<section class="offer" id="offer">
-  <div class="sblob sblob-c" style="width:500px;height:500px;top:-10%;left:-8%;opacity:0.55;"></div>
-  <div class="sblob sblob-b" style="width:420px;height:420px;bottom:-12%;right:-6%;opacity:0.50;"></div>
-  <div class="sblob sblob-d" style="width:300px;height:300px;top:50%;right:80%;opacity:0.45;"></div>
-  <div class="sblob sblob-a" style="width:350px;height:350px;top:20%;right:70%;opacity:0.45;animation-delay:-15s;"></div>
-  <div class="sblob sblob-c" style="width:280px;height:280px;bottom:25%;left:72%;opacity:0.45;animation-delay:-22s;"></div>
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">The Program</div>
-      <h2 class="section-title">15 weeks. <em>Two coaches.</em> A different man.</h2>
-    </div>
-
-    <div class="offer-card reveal">
-      <div class="offer-header">
-        <div>
-          <h3 class="offer-name">The 15-Week Lock-In</h3>
-          <div class="offer-tag">A 1-on-1 rebuild of body, mind, and systems.</div>
-        </div>
-        <div class="offer-price">
-          <div class="num">$1,697</div>
-          <div class="week">$113 / week</div>
-          <div class="denom">15 Weeks &middot; 1-on-1</div>
-        </div>
-      </div>
-
-      <div class="offer-takeout">
-        "$113 a week. Less than DoorDash, energy drinks, and weekend bar tabs. Except in 15 weeks you don't have a hangover and an empty wallet &mdash; you have a body, a mind, and a system that compounds for the next decade."
-      </div>
-
-      <div class="offer-includes">
-        <div>
-          <h4>Body</h4>
-          <ul>
-            <li>Custom fitness plan</li>
-            <li>Personalized nutrition plan</li>
-            <li>Weekly 1-on-1 calls with Rylan</li>
-            <li>Form &amp; progression coaching</li>
-          </ul>
-        </div>
-        <div>
-          <h4>Mind</h4>
-          <ul>
-            <li>Curated reading plan</li>
-            <li>Mental exercises &amp; reframes</li>
-            <li>Weekly 1-on-1 calls with Hunter</li>
-            <li>Vision &amp; identity work</li>
-          </ul>
-        </div>
-        <div>
-          <h4>Systems</h4>
-          <ul>
-            <li>Daily schedules &amp; alarms</li>
-            <li>Accountability check-ins</li>
-            <li>Resistance-point game-planning</li>
-            <li>Habit installation</li>
-          </ul>
-        </div>
-        <div>
-          <h4>Bonuses</h4>
-          <ul>
-            <li>Initial deep-dive assessment call</li>
-            <li>Private client portal</li>
-            <li>Brotherhood community access</li>
-            <li>Direct access between calls</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="scarcity">
-        <div>Only <span class="num">20</span> men at a time. Beyond 20, we stop being coaches and start being customer service.</div>
-      </div>
-
-      <div class="app-fee">
-        <strong>$19 application fee to book a call.</strong> Refunded if we're not the right fit, credited toward the program if we are. It exists to filter out tire-kickers &mdash; not to make money.
-      </div>
-
-      <div class="offer-cta-row">
-        <a href="https://calendly.com/unlockaxia/30min" target="_blank" class="btn">Apply for a Slot</a>
-        <a href="https://calendly.com/unlockaxia/30min" target="_blank" class="btn-ghost">Have Questions? Book a Call</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FAQ ===== -->
-<section>
-  <div class="sblob sblob-d" style="width:400px;height:400px;top:-10%;right:-8%;opacity:0.50;"></div>
-  <div class="sblob sblob-a" style="width:350px;height:350px;bottom:-10%;left:-5%;opacity:0.50;"></div>
-  <div class="sblob sblob-b" style="width:280px;height:280px;top:30%;left:80%;opacity:0.45;"></div>
-  <div class="sblob sblob-c" style="width:320px;height:320px;bottom:30%;right:75%;opacity:0.45;"></div>
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">Honest Answers</div>
-      <h2 class="section-title">Things men <em>actually ask.</em></h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q">
-          I'm out of shape and behind on everything. Is this for me?
-          <span class="faq-toggle"></span>
-        </div>
-        <div class="faq-a">Yes. RH is built for the man who's been telling himself "next Monday" for years. We don't need you to be ready &mdash; we need you to decide. The first call is where we figure out the gap and build the plan.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">
-          How is this different from a normal personal trainer?
-          <span class="faq-toggle"></span>
-        </div>
-        <div class="faq-a">A trainer fixes your workout. RH rebuilds your week. You get two coaches &mdash; one for the body, one for the mind &mdash; plus the systems that make either of them stick. Most men don't fail at fitness. They fail at the life around it.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">
-          Why 15 weeks instead of 12?
-          <span class="faq-toggle"></span>
-        </div>
-        <div class="faq-a">Twelve weeks is how long it takes to see a change in the mirror. Fifteen is how long it takes for the change to outlive the program. The last three weeks (Phase III) are supervised independence &mdash; you run the system without hand-holding while we're still in your corner. That's the difference between a transformation and a temporary diet.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">
-          What does the weekly schedule actually look like?
-          <span class="faq-toggle"></span>
-        </div>
-        <div class="faq-a">Daily check-ins (text or app), one weekly 1-on-1 call with Rylan on body and training, one weekly call with Hunter on mindset and systems, plus access to us between calls when resistance hits. Your plan is custom to your time, not the other way around.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">
-          What's the $19 application fee for?
-          <span class="faq-toggle"></span>
-        </div>
-        <div class="faq-a">It exists to filter. Free calls fill up with men who want to talk about changing &mdash; paid calls fill up with men who are ready to. If we're not the right fit, you get the $19 back. If we are, it's credited toward the program. It's not a revenue line, it's a door.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">
-          What if I'm not sure I'm ready to commit $1,697?
-          <span class="faq-toggle"></span>
-        </div>
-        <div class="faq-a">Then book the call and find out. If we're not the right fit, we'll tell you. If we are, you'll know exactly what you're paying for and what you'll walk out with &mdash; and you'll know the guarantee: do the work, get the change, or get every dollar back.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ===== FINAL CTA ===== -->
 <section class="final" id="book">
   <div class="sblob sblob-b" style="width:500px;height:500px;top:-15%;left:-5%;opacity:0.38;"></div>
   <div class="sblob sblob-c" style="width:400px;height:400px;bottom:-10%;right:-8%;opacity:0.50;"></div>
   <div class="sblob sblob-a" style="width:300px;height:300px;top:30%;right:70%;opacity:0.45;"></div>
-  <div class="sblob sblob-d" style="width:350px;height:350px;top:50%;left:70%;opacity:0.45;animation-delay:-12s;"></div>
-  <div class="sblob sblob-b" style="width:280px;height:280px;top:10%;right:60%;opacity:0.45;animation-delay:-28s;"></div>
   <div class="container">
     <div class="final-inner">
-      <div class="final-eyebrow">20 Slots &middot; 15-Week Lock-In</div>
-      <h2>The next 15 weeks happen <em>either way.</em></h2>
-      <p>You can spend them drifting &mdash; or you can spend them building. Book a call with Rylan and Hunter and find out if RH is the move.</p>
+      <div class="final-eyebrow">Start Sharpening</div>
+      <h2>The mind you have today built the life you have today. <em>Change the mind.</em></h2>
+      <p>Book a call with Hunter and find out what's running in the background &mdash; and what needs to change.</p>
       <a href="https://calendly.com/unlockaxia/30min" target="_blank" class="btn" data-booking>Book Your Call</a>
     </div>
   </div>
@@ -2154,11 +1522,6 @@
 
 <script>
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // FAQ toggle
-  document.querySelectorAll('.faq-item').forEach(item => {
-    item.addEventListener('click', () => item.classList.toggle('open'));
-  });
 
   // Scroll reveal with stagger support
   const revealObserver = new IntersectionObserver((entries) => {
@@ -2282,15 +1645,14 @@
 
   // Build milestone markers — use section-level elements for correct offsets
   const milestoneData = [
-    { selector: '.story', label: 'Story' },
-    { selector: '#method', label: 'Method' },
-    { selector: '.phases', label: 'Phases' },
-    { selector: '.proof-grid', label: 'Proof' },
-    { selector: '.coaches-grid', label: 'Coaches' },
-    { selector: '.guarantee', label: 'Guarantee' },
-    { selector: '#offer', label: 'Offer' },
-    { selector: '.faq-list', label: 'FAQ' },
-    { selector: '.final', label: 'Lock In' },
+    { selector: '#problem', label: 'Problem' },
+    { selector: '#identity', label: 'Identity' },
+    { selector: '#frameworks', label: 'Frameworks' },
+    { selector: '#systems', label: 'Systems' },
+    { selector: '#rhythm', label: 'Weekly Rhythm' },
+    { selector: '#benefits', label: 'Benefits' },
+    { selector: '#phases', label: 'Phases' },
+    { selector: '#book', label: 'Lock In' },
   ];
 
   // Get absolute top of element relative to document
