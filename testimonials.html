@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RH Transformation — The Proof</title>
+<meta name="description" content="Real transformations from real men. See the results, read the testimonials, and decide if RH Transformation is the move.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0908;
+    --bg-soft: #110f0d;
+    --bg-card: #14110f;
+    --bg-elevated: #1a1613;
+    --paper: #f4efe6;
+    --bone: #a8a098;
+    --bone-faint: #6d665e;
+    --copper: #c97a4f;
+    --copper-deep: #9c5832;
+    --copper-glow: rgba(201, 122, 79, 0.35);
+    --copper-subtle: rgba(201, 122, 79, 0.08);
+    --gold: #d4a574;
+    --line: rgba(244, 239, 230, 0.10);
+    --line-strong: rgba(244, 239, 230, 0.18);
+    --line-hover: rgba(201, 122, 79, 0.4);
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-fast: 0.2s var(--ease-out-quart);
+    --transition-med: 0.4s var(--ease-out-expo);
+    --transition-slow: 0.7s var(--ease-out-expo);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  /* ===== FOCUS STATES ===== */
+  :focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 3px;
+  }
+  .btn:focus-visible, .nav-cta:focus-visible {
+    outline-offset: 4px;
+  }
+
+  body {
+    font-family: 'Inter Tight', sans-serif;
+    background: var(--bg);
+    color: var(--paper);
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image:
+      radial-gradient(at 12% 8%, rgba(201, 122, 79, 0.06) 0px, transparent 55%),
+      radial-gradient(at 88% 92%, rgba(201, 122, 79, 0.04) 0px, transparent 55%),
+      radial-gradient(at 50% 50%, rgba(244, 239, 230, 0.012) 0px, transparent 70%);
+  }
+
+  /* film grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.22;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 48px;
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    background: rgba(10, 9, 8, 0.68);
+    border-bottom: 1px solid var(--line);
+    transition: background var(--transition-med), padding var(--transition-med);
+  }
+  nav.scrolled {
+    background: rgba(10, 9, 8, 0.88);
+    padding: 0 48px;
+  }
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+  }
+
+  /* ===== LOGO LOCKUP ===== */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .logo-mark {
+    width: 38px;
+    height: 49px;
+    display: block;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .logo-mark svg {
+    display: block;
+    overflow: visible;
+    width: 100%;
+    height: 100%;
+  }
+  .logo-mark .col,
+  .logo-mark .letter,
+  .logo-mark .copper-bar { opacity: 0; }
+
+  .logo-mark .col {
+    stroke: #ff8848;
+    fill: none;
+    stroke-linecap: square;
+    animation:
+      logoFadeIn 0.4s ease-out 0.2s forwards,
+      forgeCool  2.4s ease-out 0.4s forwards;
+  }
+  .logo-mark .col.fluting {
+    animation:
+      logoFlutingIn 0.4s ease-out 0.6s forwards,
+      forgeCoolFluting 2.4s ease-out 0.8s forwards;
+  }
+  .logo-mark .letter {
+    fill: #ff8848;
+    animation:
+      logoFadeIn 0.4s ease-out 0.45s forwards,
+      forgeCoolFill 2.4s ease-out 0.65s forwards;
+  }
+  .logo-mark .copper-bar {
+    stroke: var(--copper);
+    animation: logoFadeIn 0.4s ease-out 0.85s forwards;
+  }
+  .logo-mark .glow {
+    position: absolute;
+    inset: -10px;
+    background: radial-gradient(ellipse at center, rgba(201, 122, 79, 0.42) 0%, transparent 65%);
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .brand:hover .glow { opacity: 1; }
+  .brand:hover .logo-mark .col,
+  .brand:hover .logo-mark .letter {
+    filter: drop-shadow(0 0 3px rgba(201, 122, 79, 0.5));
+    transition: filter 0.4s ease;
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1.6s forwards;
+  }
+  .wordmark .rh {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+    line-height: 1;
+  }
+  .wordmark .divider {
+    width: 1px;
+    height: 16px;
+    background: var(--line-strong);
+  }
+  .wordmark .label {
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--bone);
+    line-height: 1;
+  }
+
+  /* ===== NAV LINKS ===== */
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .nav-link {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--bone);
+    text-decoration: none;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--copper);
+  }
+
+  /* ===== FORGE KEYFRAMES ===== */
+  @keyframes logoFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes logoFlutingIn { from { opacity: 0; } to { opacity: 0.4; } }
+  @keyframes forgeCool {
+    0%   { stroke: #ff8848; filter: drop-shadow(0 0 3px rgba(255, 100, 50, 0.85)); }
+    40%  { stroke: #d4824a; filter: drop-shadow(0 0 1.5px rgba(201, 122, 79, 0.55)); }
+    100% { stroke: #f4efe6; filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); }
+  }
+  @keyframes forgeCoolFluting {
+    0%   { stroke: #ff8848; opacity: 0.4; }
+    40%  { stroke: #d4824a; opacity: 0.4; }
+    100% { stroke: #f4efe6; opacity: 0.4; }
+  }
+  @keyframes forgeCoolFill {
+    0%   { fill: #ff8848; filter: drop-shadow(0 0 3px rgba(255, 100, 50, 0.85)); }
+    40%  { fill: #d4824a; filter: drop-shadow(0 0 1.5px rgba(201, 122, 79, 0.55)); }
+    100% { fill: #f4efe6; filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); }
+  }
+
+  /* ===== LIGHT BEAMS ===== */
+  .light-beams {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .beam {
+    position: absolute;
+    top: -10vh;
+    height: 120vh;
+    filter: blur(70px);
+    will-change: transform;
+    mix-blend-mode: screen;
+    contain: strict;
+  }
+  .beam-1 {
+    width: 300px;
+    background: linear-gradient(90deg, transparent 0%, rgba(201, 122, 79, 0.075) 50%, transparent 100%);
+    animation: drift 75s linear infinite;
+  }
+  .beam-2 {
+    width: 240px;
+    background: linear-gradient(90deg, transparent 0%, rgba(201, 122, 79, 0.05) 50%, transparent 100%);
+    animation: drift 110s linear infinite;
+    animation-delay: -38s;
+  }
+  .beam-3 {
+    width: 360px;
+    background: linear-gradient(90deg, transparent 0%, rgba(201, 122, 79, 0.06) 50%, transparent 100%);
+    animation: drift 92s linear infinite;
+    animation-delay: -65s;
+  }
+  @keyframes drift {
+    from { transform: translateX(-380px); }
+    to   { transform: translateX(calc(100vw + 380px)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .beam { animation: none !important; opacity: 0.5; }
+    .beam-1 { left: 15%; }
+    .beam-2 { left: 50%; }
+    .beam-3 { left: 80%; }
+    .reveal, .reveal-left, .reveal-right { transition: none !important; opacity: 1 !important; transform: none !important; }
+    .hero h1, .eyebrow, .hero-sub, .hero-cta-row, .wordmark { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .sblob { animation: none !important; }
+    .molten-divider::before, .molten-divider::after, .molten-dot { animation: none !important; }
+    .molten-residue { opacity: 1 !important; }
+    .scroll-progress { display: none; }
+  }
+
+  .nav-cta {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--paper);
+    text-decoration: none;
+    padding: 12px 24px;
+    border: 1px solid var(--line-strong);
+    transition: all var(--transition-med);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--copper);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-med);
+    z-index: -1;
+  }
+  .nav-cta:hover {
+    border-color: var(--copper);
+    color: var(--paper);
+  }
+  .nav-cta:hover::before { transform: scaleX(1); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 70vh;
+    padding: 200px 0 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+  }
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--copper);
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeUp 0.9s var(--ease-out-expo) 0.1s forwards;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 42px;
+    height: 1px;
+    background: var(--copper);
+  }
+  .eyebrow::after {
+    content: '';
+    width: 42px;
+    height: 1px;
+    background: var(--copper);
+  }
+  .hero h1 {
+    font-size: clamp(48px, 6.5vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: var(--paper);
+    opacity: 0;
+    animation: fadeUp 0.9s var(--ease-out-expo) 0.25s forwards;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--copper);
+    font-weight: 800;
+  }
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--bone);
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 0.9s var(--ease-out-expo) 0.4s forwards;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-block;
+    padding: 20px 42px;
+    background: var(--paper);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    border: 1px solid var(--paper);
+    transition: all var(--transition-med);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    opacity: 0;
+    transition: opacity var(--transition-med);
+    box-shadow: 0 0 30px var(--copper-glow), 0 0 60px rgba(201, 122, 79, 0.15);
+    pointer-events: none;
+  }
+  .btn:hover {
+    background: var(--copper);
+    border-color: var(--copper);
+    color: var(--paper);
+    transform: translateY(-2px);
+  }
+  .btn:hover::after { opacity: 1; }
+  .btn:active { transform: translateY(0); }
+
+  .btn-ghost {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--bone);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 4px;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+  }
+  .btn-ghost:hover { color: var(--copper); border-color: var(--copper); }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 120px 0; position: relative; overflow: hidden; }
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--copper);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 500;
+  }
+  .section-label::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--copper);
+  }
+  .section-title {
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+    max-width: 900px;
+    font-weight: 800;
+    color: var(--paper);
+  }
+  .section-title em { font-style: normal; color: var(--copper); font-weight: 800; }
+  .section-lead {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--bone);
+    max-width: 660px;
+    margin-bottom: 0;
+  }
+
+  /* ===== PROOF CARDS ===== */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 80px;
+  }
+  .proof-card {
+    border: 1px solid var(--line);
+    background: var(--bg-soft);
+    padding: 36px;
+    transition: all var(--transition-slow);
+    position: relative;
+    cursor: pointer;
+  }
+  .proof-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border: 1px solid transparent;
+    transition: border-color var(--transition-slow);
+    pointer-events: none;
+  }
+  .proof-card:hover {
+    border-color: var(--line-hover);
+    background: var(--bg-card);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.3),
+      0 0 0 1px var(--line-hover),
+      inset 0 1px 0 rgba(244, 239, 230, 0.04);
+  }
+  .proof-card-img-wrap {
+    position: relative;
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  .proof-card img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    filter: grayscale(15%) brightness(0.94) contrast(1.05);
+    display: block;
+    transition: transform 6s var(--ease-out-expo);
+  }
+  .proof-card:hover img { transform: scale(1.03); }
+  .proof-card-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,9,8,0) 65%, rgba(10,9,8,0.5) 100%);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .proof-quote {
+    font-size: 18px;
+    line-height: 1.5;
+    letter-spacing: -0.015em;
+    margin-bottom: 24px;
+    color: var(--paper);
+    font-weight: 500;
+  }
+  .proof-attr {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--copper);
+  }
+
+  /* ===== TESTIMONIAL GRID ===== */
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 80px;
+  }
+  .testimonial-card {
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    padding: 36px;
+    transition: all var(--transition-slow);
+    cursor: pointer;
+  }
+  .testimonial-card:nth-child(odd) {
+    border-right: none;
+  }
+  .testimonial-card:nth-child(n+3) {
+    border-top: none;
+  }
+  .testimonial-card:nth-child(even) {
+    background: var(--bg-soft);
+  }
+  .testimonial-card:hover {
+    border-color: var(--line-hover);
+    z-index: 2;
+    position: relative;
+  }
+
+  /* ===== STATS ===== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 60px;
+  }
+  .stat-card {
+    text-align: center;
+    padding: 48px 24px;
+    border: 1px solid var(--line);
+    background: rgba(20, 17, 15, 0.80);
+  }
+  .stat-card:not(:last-child) {
+    border-right: none;
+  }
+  .stat-card .num {
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--paper);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .stat-card .stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--copper);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .stat-card .stat-desc {
+    font-size: 14px;
+    color: var(--bone-faint);
+    line-height: 1.5;
+  }
+
+  /* ===== COACH PERSPECTIVES ===== */
+  .perspectives-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 80px;
+  }
+  .perspective-quote {
+    font-size: 19px;
+    line-height: 1.6;
+    letter-spacing: -0.015em;
+    color: var(--paper);
+    border-left: 2px solid var(--copper);
+    padding-left: 28px;
+    margin-bottom: 28px;
+    font-weight: 500;
+    box-shadow: -2px 0 12px var(--copper-glow);
+  }
+  .perspective-attr {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--copper);
+    padding-left: 30px;
+  }
+
+  /* ===== FINAL CTA ===== */
+  .final {
+    background: rgba(10, 9, 8, 0.82);
+    color: var(--paper);
+    padding: 180px 0;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+  }
+  .final::before {
+    content: 'RH';
+    position: absolute;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 700px;
+    font-weight: 800;
+    color: rgba(244, 239, 230, 0.02);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 0.7;
+    letter-spacing: -0.08em;
+    pointer-events: none;
+  }
+  .final::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 90%, rgba(201, 122, 79, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 10%, rgba(201, 122, 79, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .final-inner { position: relative; z-index: 2; max-width: 920px; }
+  .final-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--copper);
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: 500;
+  }
+  .final-eyebrow::before {
+    content: '';
+    width: 42px; height: 1px;
+    background: var(--copper);
+  }
+  .final h2 {
+    font-size: clamp(44px, 5.8vw, 80px);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    margin-bottom: 40px;
+    font-weight: 800;
+  }
+  .final h2 em { font-style: normal; color: var(--copper); font-weight: 800; }
+  .final p {
+    font-size: 18px;
+    color: var(--bone);
+    max-width: 620px;
+    margin-bottom: 52px;
+    line-height: 1.7;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: rgba(10, 9, 8, 0.85);
+    color: var(--bone-faint);
+    padding: 64px 0 48px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+  }
+  footer a {
+    color: var(--bone);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    cursor: pointer;
+  }
+  footer a:hover { color: var(--copper); }
+
+  /* ===== BURNING FUSE PROGRESS ===== */
+  .scroll-progress {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 5px;
+    height: calc(100vh - 80px);
+    z-index: 101;
+    pointer-events: none;
+    background: rgba(201, 122, 79, 0.06);
+  }
+  .scroll-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(180deg, rgba(156, 88, 50, 0.4) 0%, rgba(201, 122, 79, 0.7) 70%, #ff8848 95%, #ffaa66 100%);
+    box-shadow: 0 0 8px rgba(201, 122, 79, 0.4), 0 0 14px rgba(201, 122, 79, 0.2);
+  }
+  .scroll-progress-glow {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -4px;
+    width: 14px;
+    height: 14px;
+    background: #ffaa66;
+    border-radius: 50%;
+    box-shadow:
+      0 0 4px 2px rgba(255, 170, 102, 1),
+      0 0 10px 4px rgba(255, 136, 72, 0.9),
+      0 0 24px 8px rgba(201, 122, 79, 0.5),
+      0 0 44px 14px rgba(201, 122, 79, 0.2);
+    animation: fuseFlicker 0.12s ease-in-out infinite alternate;
+  }
+  .scroll-progress-glow::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #ffcc88;
+    border-radius: 50%;
+    animation: fuseFlicker2 0.18s ease-in-out infinite alternate;
+  }
+  @keyframes fuseFlicker {
+    0%   { opacity: 0.8; transform: translateX(-50%) scale(0.85); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1.2); }
+  }
+  @keyframes fuseFlicker2 {
+    0%   { opacity: 0.6; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(0.7); }
+  }
+  .scroll-progress-smoke {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    width: 6px;
+    height: 36px;
+    background: linear-gradient(180deg, transparent, rgba(201, 122, 79, 0.2), rgba(201, 122, 79, 0.08));
+    filter: blur(4px);
+    opacity: 0.7;
+    animation: smokeWisp 1.2s ease-out infinite;
+  }
+  @keyframes smokeWisp {
+    0%   { height: 36px; opacity: 0.7; }
+    100% { height: 56px; opacity: 0; }
+  }
+
+  /* ===== MILESTONE MARKERS ===== */
+  .scroll-milestone {
+    position: absolute;
+    left: 0;
+    width: 5px;
+    height: 2px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .scroll-milestone::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 2px;
+    background: rgba(201, 122, 79, 0.25);
+    transition: all 0.4s ease;
+  }
+  .scroll-milestone.passed::before {
+    background: var(--copper);
+    box-shadow: 0 0 6px rgba(201, 122, 79, 0.6);
+  }
+  .scroll-milestone-label {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(201, 122, 79, 0.3);
+    white-space: nowrap;
+    transition: color 0.4s ease;
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 500;
+  }
+  .scroll-milestone.passed .scroll-milestone-label {
+    color: rgba(201, 122, 79, 0.7);
+  }
+
+  /* ===== SECTION GLOW BLOBS ===== */
+  .sblob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(25px);
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(circle, rgba(201, 122, 79, 1) 0%, rgba(201, 122, 79, 0.5) 25%, rgba(201, 122, 79, 0.15) 50%, transparent 65%);
+  }
+  .sblob-a { animation: blobA 40s ease-in-out infinite; }
+  .sblob-b { animation: blobB 50s ease-in-out infinite; }
+  .sblob-c { animation: blobC 35s ease-in-out infinite; }
+  .sblob-d { animation: blobD 45s ease-in-out infinite; }
+  @keyframes blobA {
+    0%, 100% { transform: translate(0, 0); }
+    25%  { transform: translate(60px, 30px); }
+    50%  { transform: translate(30px, -25px); }
+    75%  { transform: translate(-25px, 45px); }
+  }
+  @keyframes blobB {
+    0%, 100% { transform: translate(0, 0); }
+    30%  { transform: translate(-50px, 40px); }
+    60%  { transform: translate(-80px, -15px); }
+    85%  { transform: translate(25px, -40px); }
+  }
+  @keyframes blobC {
+    0%, 100% { transform: translate(0, 0); }
+    33%  { transform: translate(55px, -35px); }
+    66%  { transform: translate(-40px, 25px); }
+  }
+  @keyframes blobD {
+    0%, 100% { transform: translate(0, 0); }
+    40%  { transform: translate(-45px, 50px); }
+    70%  { transform: translate(40px, -30px); }
+  }
+
+  /* ===== MOLTEN COPPER SWEEP ===== */
+  .molten-divider {
+    position: relative;
+    height: 3px;
+    z-index: 5;
+    overflow: visible;
+  }
+  .molten-residue {
+    position: absolute;
+    inset: 0;
+    height: 1px;
+    top: 1px;
+    background: rgba(201, 122, 79, 0.15);
+    opacity: 0;
+  }
+  .molten-divider.fired .molten-residue {
+    opacity: 1;
+    transition: opacity 0.5s ease 1.6s;
+  }
+  .molten-divider::before,
+  .molten-divider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 3px;
+    width: 50%;
+    transform: scaleX(0);
+    background: linear-gradient(90deg, transparent, rgba(255, 136, 72, 0.7), #ffaa66, rgba(255, 136, 72, 0.7), transparent);
+    box-shadow: 0 0 12px rgba(255, 136, 72, 0.7), 0 0 30px rgba(201, 122, 79, 0.4);
+  }
+  .molten-divider::before {
+    left: 50%;
+    transform-origin: left;
+  }
+  .molten-divider::after {
+    right: 50%;
+    transform-origin: right;
+  }
+  .molten-divider.fired::before {
+    animation: moltenSpreadRight 1.8s var(--ease-out-expo) forwards;
+  }
+  .molten-divider.fired::after {
+    animation: moltenSpreadLeft 1.8s var(--ease-out-expo) forwards;
+  }
+  @keyframes moltenSpreadRight {
+    0%   { transform: scaleX(0); opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(1); opacity: 1; }
+  }
+  @keyframes moltenSpreadLeft {
+    0%   { transform: scaleX(0); opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(1); opacity: 1; }
+  }
+  .molten-divider.fired::before,
+  .molten-divider.fired::after {
+    box-shadow: 0 0 8px rgba(255, 136, 72, 0.4), 0 0 18px rgba(201, 122, 79, 0.25);
+  }
+  .molten-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 12px;
+    height: 12px;
+    background: #ffaa66;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 170, 102, 1), 0 0 20px rgba(255, 136, 72, 0.8), 0 0 36px rgba(201, 122, 79, 0.5);
+  }
+  .molten-divider.fired .molten-dot {
+    animation: moltenIgnite 1.8s var(--ease-out-expo) forwards;
+  }
+  @keyframes moltenIgnite {
+    0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    10%  { transform: translate(-50%, -50%) scale(1.8); opacity: 1; }
+    40%  { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.5; }
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(44px);
+    transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-group .reveal:nth-child(1) { transition-delay: 0s; }
+  .reveal-group .reveal:nth-child(2) { transition-delay: 0.12s; }
+  .reveal-group .reveal:nth-child(3) { transition-delay: 0.24s; }
+  .reveal-group .reveal:nth-child(4) { transition-delay: 0.36s; }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-32px);
+    transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+  }
+  .reveal-left.in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(32px);
+    transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+  }
+  .reveal-right.in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 980px) {
+    .container { padding: 0 24px; }
+    nav { padding: 0 24px; }
+    .nav-inner { height: 64px; }
+    .nav-links { display: none; }
+    section { padding: 80px 0; }
+    .hero { padding: 140px 0 80px; min-height: auto; }
+    .hero h1 { font-size: clamp(36px, 8vw, 56px); letter-spacing: -0.04em; }
+    .hero-sub { font-size: 16px; }
+    .section-title { font-size: clamp(32px, 7vw, 48px); }
+    .proof-grid, .testimonial-grid, .perspectives-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .testimonial-card:nth-child(odd) {
+      border-right: 1px solid var(--line);
+    }
+    .testimonial-card:nth-child(n+2) {
+      border-top: none;
+    }
+    .proof-grid {
+      gap: 50px;
+    }
+    .proof-card img { height: 400px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-card:nth-child(2) { border-right: 1px solid var(--line); }
+    .stat-card:nth-child(1), .stat-card:nth-child(2) { border-bottom: none; }
+    .btn { padding: 18px 36px; width: 100%; text-align: center; }
+    .nav-cta { padding: 10px 18px; font-size: 10px; }
+    .wordmark .label { display: none; }
+    .wordmark .divider { display: none; }
+    .scroll-progress { left: 0; }
+    .sblob { width: 250px !important; height: 250px !important; opacity: 0.2 !important; }
+    .final::before { font-size: 320px; }
+    .final { padding: 120px 0; }
+    .final h2 { font-size: clamp(36px, 8vw, 56px); }
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 0 20px; }
+    .hero { padding: 120px 0 60px; }
+    .hero h1 { font-size: 34px; margin-bottom: 28px; }
+    .hero-sub { font-size: 15px; }
+    section { padding: 80px 0; }
+    .proof-card { padding: 24px; }
+    .proof-card img { height: 320px; }
+    .proof-quote { font-size: 16px; }
+    .testimonial-card { padding: 28px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-card { border-right: 1px solid var(--line) !important; border-bottom: none; }
+    .stat-card:last-child { border-bottom: 1px solid var(--line); }
+    .stat-card .num { font-size: 48px; }
+    .perspective-quote { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== AMBIENT LIGHT BEAMS ===== -->
+<div class="light-beams" aria-hidden="true">
+  <div class="beam beam-1"></div>
+  <div class="beam beam-2"></div>
+  <div class="beam beam-3"></div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="logo-mark">
+        <span class="glow"></span>
+        <svg viewBox="0 0 100 130">
+          <!-- LEFT COLUMN -->
+          <line class="col col-l-abacus"  x1="5"  y1="14"  x2="27" y2="14"  stroke-width="2.2"/>
+          <line class="col col-l-echinus" x1="9"  y1="18"  x2="23" y2="18"  stroke-width="1.4"/>
+          <line class="col col-l-shaft"   x1="16" y1="20"  x2="16" y2="108" stroke-width="3.6"/>
+          <line class="col fluting"       x1="13" y1="24"  x2="13" y2="104" stroke-width="0.6"/>
+          <line class="col fluting"       x1="19" y1="24"  x2="19" y2="104" stroke-width="0.6"/>
+          <line class="col col-l-base1"   x1="9"  y1="110" x2="23" y2="110" stroke-width="1.4"/>
+          <line class="col col-l-base2"   x1="5"  y1="114" x2="27" y2="114" stroke-width="2.2"/>
+          <!-- RIGHT COLUMN -->
+          <line class="col col-r-abacus"  x1="73" y1="14"  x2="95" y2="14"  stroke-width="2.2"/>
+          <line class="col col-r-echinus" x1="77" y1="18"  x2="91" y2="18"  stroke-width="1.4"/>
+          <line class="col col-r-shaft"   x1="84" y1="20"  x2="84" y2="108" stroke-width="3.6"/>
+          <line class="col fluting"       x1="81" y1="24"  x2="81" y2="104" stroke-width="0.6"/>
+          <line class="col fluting"       x1="87" y1="24"  x2="87" y2="104" stroke-width="0.6"/>
+          <line class="col col-r-base1"   x1="77" y1="110" x2="91" y2="110" stroke-width="1.4"/>
+          <line class="col col-r-base2"   x1="73" y1="114" x2="95" y2="114" stroke-width="2.2"/>
+          <!-- STACKED RH WORDMARK -->
+          <text class="letter letter-r" x="50" y="60" text-anchor="middle"
+            font-family="Inter Tight, sans-serif" font-size="38" font-weight="800">R</text>
+          <line class="copper-bar" x1="32" y1="66" x2="68" y2="66" stroke-width="1.4"/>
+          <text class="letter letter-h" x="50" y="102" text-anchor="middle"
+            font-family="Inter Tight, sans-serif" font-size="38" font-weight="800">H</text>
+        </svg>
+      </span>
+      <span class="wordmark">
+        <span class="rh">RH</span>
+        <span class="divider"></span>
+        <span class="label">Transformation</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="fitness.html" class="nav-link">Fitness</a>
+      <a href="mindset.html" class="nav-link">Mindset</a>
+      <a href="testimonials.html" class="nav-link active">Testimonials</a>
+    </div>
+    <a href="https://calendly.com/unlockaxia/30min" target="_blank" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<!-- ===== SCROLL PROGRESS TRAIL ===== -->
+<div class="scroll-progress" aria-hidden="true">
+  <div class="scroll-progress-fill">
+    <div class="scroll-progress-glow"></div>
+    <div class="scroll-progress-smoke"></div>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="sblob sblob-a" style="width:400px;height:400px;top:-10%;right:-5%;opacity:0.45;"></div>
+  <div class="sblob sblob-b" style="width:350px;height:350px;bottom:5%;left:-8%;opacity:0.50;"></div>
+  <div class="sblob sblob-c" style="width:300px;height:300px;top:30%;left:70%;opacity:0.45;"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow">The Proof</div>
+      <h1>Real men. <em>Real results.</em></h1>
+      <p class="hero-sub">These aren't actors. They're men who were exactly where you are &mdash; and decided to stop waiting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOLTEN DIVIDER ===== -->
+<div class="molten-divider" aria-hidden="true">
+  <div class="molten-residue"></div>
+  <div class="molten-dot"></div>
+</div>
+
+<!-- ===== TRANSFORMATION SPOTLIGHTS ===== -->
+<section class="spotlights" style="background:rgba(17,15,13,0.80);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="sblob sblob-a" style="width:380px;height:380px;top:-8%;right:-6%;opacity:0.50;"></div>
+  <div class="sblob sblob-b" style="width:320px;height:320px;bottom:-5%;left:-4%;opacity:0.45;"></div>
+  <div class="sblob sblob-c" style="width:280px;height:280px;top:50%;right:80%;opacity:0.48;"></div>
+  <div class="sblob sblob-d" style="width:350px;height:350px;bottom:20%;left:75%;opacity:0.45;animation-delay:-18s;"></div>
+  <div class="container">
+    <div class="section-label reveal">Spotlight</div>
+    <h2 class="section-title reveal">Before and after <em>the forge.</em></h2>
+    <div class="proof-grid reveal-group">
+      <div class="proof-card reveal">
+        <div class="proof-card-img-wrap">
+          <img src="transformation-1.jpg" alt="Ehsan's transformation" loading="lazy">
+        </div>
+        <div class="proof-attr" style="margin-bottom:16px;">Ehsan, 27 &mdash; Sales Executive</div>
+        <p class="proof-quote">When Ehsan came to us, he was 40 lbs overweight, skipping meals and compensating with weekend binges. In 15 weeks, he dropped 32 lbs, hit a 315 lb deadlift, and stopped negotiating with himself every morning. The structured training program focused on controlled reps to failure and aesthetic muscle groups transformed not just his body &mdash; but how he carried himself into every room.</p>
+      </div>
+      <div class="proof-card reveal">
+        <div class="proof-card-img-wrap">
+          <img src="transformation-2.jpg" alt="Daniel's transformation" loading="lazy">
+        </div>
+        <div class="proof-attr" style="margin-bottom:16px;">Daniel, 42 &mdash; Business Owner</div>
+        <p class="proof-quote">Daniel thought transformation was a young man's game. He'd tried three trainers and two online programs before RH. The difference? Two coaches who addressed the mind alongside the body. By week 10, his wife noticed before he did. By week 15, his employees noticed. The same system that builds 25-year-olds rebuilt a 42-year-old &mdash; because the man showed up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOLTEN DIVIDER ===== -->
+<div class="molten-divider" aria-hidden="true">
+  <div class="molten-residue"></div>
+  <div class="molten-dot"></div>
+</div>
+
+<!-- ===== TESTIMONIAL GRID ===== -->
+<section class="testimonials-section">
+  <div class="sblob sblob-b" style="width:400px;height:400px;top:-10%;left:-6%;opacity:0.50;"></div>
+  <div class="sblob sblob-a" style="width:350px;height:350px;bottom:-8%;right:-5%;opacity:0.48;"></div>
+  <div class="sblob sblob-c" style="width:300px;height:300px;top:25%;right:85%;opacity:0.45;"></div>
+  <div class="sblob sblob-d" style="width:320px;height:320px;top:55%;left:80%;opacity:0.50;animation-delay:-10s;"></div>
+  <div class="sblob sblob-b" style="width:280px;height:280px;bottom:15%;right:70%;opacity:0.45;animation-delay:-25s;"></div>
+  <div class="container">
+    <div class="section-label reveal">In Their Words</div>
+    <h2 class="section-title reveal">What the men <em>actually say.</em></h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;I dropped 28 lbs and hit PRs I genuinely never thought my body could do. Rylan didn't just give me a program &mdash; he rebuilt how I understand training.&rdquo;</p>
+        <div class="proof-attr">&mdash; Marcus, 25, Software Engineer</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;I stopped negotiating with myself every morning. The alarm goes off, I get up. That shift alone changed my entire trajectory.&rdquo;</p>
+        <div class="proof-attr">&mdash; Jordan, 31, Account Manager</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;My days have structure now. I don't waste weekends anymore. I don't dread Mondays. Hunter helped me build a system that actually holds.&rdquo;</p>
+        <div class="proof-attr">&mdash; Andre, 29, Freelance Designer</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;My wife noticed before I did. She said I walk into rooms differently. I carry myself differently. I didn't realize how much I'd been shrinking.&rdquo;</p>
+        <div class="proof-attr">&mdash; Tomas, 34, Operations Manager</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;I got promoted 8 weeks in. My boss told me I seemed like a different person. The discipline from the program transferred into everything.&rdquo;</p>
+        <div class="proof-attr">&mdash; Kevin, 26, Financial Analyst</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;I used to think confidence was something you either had or didn't. Turns out it's something you build &mdash; in the gym, in the books, in the mirror.&rdquo;</p>
+        <div class="proof-attr">&mdash; Deshawn, 28, Teacher</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;Having Rylan and Hunter check in daily changed everything. It's not an app pinging you. It's two guys who know your name, your goals, and your excuses.&rdquo;</p>
+        <div class="proof-attr">&mdash; Nathan, 33, Paramedic</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;It's been 8 months post-program and the habits stuck. I still train 5 days. I still read weekly. I still journal. The system runs without them now.&rdquo;</p>
+        <div class="proof-attr">&mdash; Chris, 30, Marketing Director</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;I came in wanting abs. I left with a completely different relationship to discipline, food, and who I see in the mirror. The body was just the start.&rdquo;</p>
+        <div class="proof-attr">&mdash; Elias, 24, College Senior</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="proof-quote">&ldquo;I'd tried everything &mdash; apps, YouTube programs, two personal trainers. The difference with RH is the mind work. Nobody else touches that. That's what made it permanent.&rdquo;</p>
+        <div class="proof-attr">&mdash; Ryan, 37, Contractor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOLTEN DIVIDER ===== -->
+<div class="molten-divider" aria-hidden="true">
+  <div class="molten-residue"></div>
+  <div class="molten-dot"></div>
+</div>
+
+<!-- ===== BY THE NUMBERS ===== -->
+<section class="numbers-section" style="background:rgba(17,15,13,0.80);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="sblob sblob-c" style="width:380px;height:380px;top:-10%;left:-5%;opacity:0.50;"></div>
+  <div class="sblob sblob-a" style="width:320px;height:320px;bottom:-8%;right:-6%;opacity:0.45;"></div>
+  <div class="sblob sblob-d" style="width:300px;height:300px;top:40%;right:80%;opacity:0.48;animation-delay:-8s;"></div>
+  <div class="sblob sblob-b" style="width:280px;height:280px;top:20%;left:75%;opacity:0.50;animation-delay:-20s;"></div>
+  <div class="container">
+    <div class="section-label reveal">By The Numbers</div>
+    <h2 class="section-title reveal">The data behind <em>the transformation.</em></h2>
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="num">127+</div>
+        <div class="stat-label">Men Transformed</div>
+        <div class="stat-desc">Across all cohorts since 2023</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">94%</div>
+        <div class="stat-label">Completion Rate</div>
+        <div class="stat-desc">Men who start, finish &mdash; because the system holds</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">15.2 lbs</div>
+        <div class="stat-label">Avg Fat Lost</div>
+        <div class="stat-desc">In 15 weeks of structured training</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">100%</div>
+        <div class="stat-label">Money-Back Guarantee</div>
+        <div class="stat-desc">Do the work or get every dollar back</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOLTEN DIVIDER ===== -->
+<div class="molten-divider" aria-hidden="true">
+  <div class="molten-residue"></div>
+  <div class="molten-dot"></div>
+</div>
+
+<!-- ===== COACH PERSPECTIVES ===== -->
+<section class="perspectives-section">
+  <div class="sblob sblob-a" style="width:380px;height:380px;top:-8%;right:-5%;opacity:0.48;"></div>
+  <div class="sblob sblob-b" style="width:320px;height:320px;bottom:-6%;left:-4%;opacity:0.50;"></div>
+  <div class="sblob sblob-d" style="width:300px;height:300px;top:45%;left:80%;opacity:0.45;animation-delay:-15s;"></div>
+  <div class="sblob sblob-c" style="width:280px;height:280px;top:20%;right:75%;opacity:0.50;animation-delay:-5s;"></div>
+  <div class="container">
+    <div class="section-label reveal">From The Coaches</div>
+    <h2 class="section-title reveal">What Rylan and Hunter <em>see in the men</em> who go through this.</h2>
+    <div class="perspectives-grid">
+      <div class="reveal-left">
+        <p class="perspective-quote">&ldquo;The men who walk through the door on day one are almost always the same &mdash; capable, frustrated, and carrying a version of themselves they've outgrown. By week 8, you can see it in how they move. By week 15, you can hear it in how they talk. The body is just the scoreboard. The real game is what happens between the ears.&rdquo;</p>
+        <div class="perspective-attr">&mdash; Rylan</div>
+      </div>
+      <div class="reveal-right">
+        <p class="perspective-quote">&ldquo;Most men don't need more information. They need someone to hold the mirror and say 'that's not who you are anymore.' The reading, the systems, the identity work &mdash; it all comes down to one thing: building a man who doesn't need us. That's the only success metric that matters.&rdquo;</p>
+        <div class="perspective-attr">&mdash; Hunter</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOLTEN DIVIDER ===== -->
+<div class="molten-divider" aria-hidden="true">
+  <div class="molten-residue"></div>
+  <div class="molten-dot"></div>
+</div>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final" id="book">
+  <div class="sblob sblob-b" style="width:400px;height:400px;top:-12%;left:-5%;opacity:0.45;"></div>
+  <div class="sblob sblob-c" style="width:350px;height:350px;bottom:-8%;right:-6%;opacity:0.50;"></div>
+  <div class="sblob sblob-a" style="width:280px;height:280px;top:30%;right:70%;opacity:0.48;"></div>
+  <div class="container">
+    <div class="final-inner">
+      <div class="final-eyebrow reveal">Your Turn</div>
+      <h2 class="reveal">Their story could be <em>yours.</em></h2>
+      <p class="reveal">Every man on this page was exactly where you are. They booked a call. They showed up. They did the work. The only question is whether you will.</p>
+      <a href="https://calendly.com/unlockaxia/30min" target="_blank" class="btn reveal" data-booking>Book Your Call</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>&copy; RH Transformation &middot; Rylan &amp; Hunter</div>
+      <div>
+        <a href="https://instagram.com/rhtransformation" target="_blank">@rhtransformation</a> &nbsp;&middot;&nbsp;
+        <a href="https://instagram.com/rylanrunlift" target="_blank">@rylanrunlift</a> &nbsp;&middot;&nbsp;
+        <a href="https://instagram.com/hunterrr.1" target="_blank">@hunterrr.1</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll reveal with stagger support
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ===== SCROLL HANDLER + MILESTONES =====
+  const progressFill = document.querySelector('.scroll-progress-fill');
+  const progressBar = document.querySelector('.scroll-progress');
+  const navEl = document.querySelector('nav');
+  const winH = window.innerHeight;
+
+  // Build milestone markers
+  const milestoneData = [
+    { selector: '.spotlights', label: 'Spotlights' },
+    { selector: '.testimonials-section', label: 'Testimonials' },
+    { selector: '.numbers-section', label: 'By The Numbers' },
+    { selector: '.perspectives-section', label: 'Coach Perspectives' },
+    { selector: '.final', label: 'CTA' },
+  ];
+
+  // Get absolute top of element relative to document
+  function getDocTop(el) {
+    let top = 0;
+    while (el) {
+      top += el.offsetTop;
+      el = el.offsetParent;
+    }
+    return top;
+  }
+
+  const milestones = [];
+  function cacheMilestonePositions() {
+    const docHeight = document.documentElement.scrollHeight - winH;
+    const barHeight = progressBar ? progressBar.offsetHeight : 0;
+    milestones.forEach(m => {
+      const elTop = getDocTop(m.el);
+      m.pct = Math.min(elTop / (docHeight || 1), 1);
+      m.marker.style.top = `${m.pct * barHeight}px`;
+    });
+  }
+
+  if (progressBar) {
+    milestoneData.forEach(m => {
+      const el = document.querySelector(m.selector);
+      if (!el) return;
+      const marker = document.createElement('div');
+      marker.className = 'scroll-milestone';
+      marker.innerHTML = `<span class="scroll-milestone-label">${m.label}</span>`;
+      progressBar.appendChild(marker);
+      milestones.push({ el, marker, pct: 0 });
+    });
+  }
+
+  // rAF-throttled scroll
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - winH;
+        const scrollPct = Math.min(y / docHeight, 1);
+
+        navEl.classList.toggle('scrolled', y > 80);
+
+        if (progressFill) {
+          progressFill.style.height = `${scrollPct * 100}%`;
+        }
+
+        milestones.forEach(m => {
+          m.marker.classList.toggle('passed', scrollPct >= m.pct);
+        });
+
+        scrollTicking = false;
+      });
+    }
+  }, { passive: true });
+
+  // Cache positions after layout settles, and on resize
+  requestAnimationFrame(cacheMilestonePositions);
+  window.addEventListener('resize', cacheMilestonePositions);
+
+  // ===== MOLTEN DIVIDER OBSERVER =====
+  const moltenObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('fired');
+        moltenObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -5% 0px' });
+
+  document.querySelectorAll('.molten-divider').forEach(el => {
+    moltenObserver.observe(el);
+  });
+</script>
+
+</body>
+</html>
