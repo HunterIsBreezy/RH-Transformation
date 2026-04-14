@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="4" fill="#0a0908"/>
+  <g transform="translate(6, 2.5) scale(0.2)">
+    <!-- LEFT COLUMN -->
+    <line x1="5"  y1="14"  x2="27" y2="14"  stroke="#f4efe6" stroke-width="3.5" stroke-linecap="square"/>
+    <line x1="9"  y1="19"  x2="23" y2="19"  stroke="#f4efe6" stroke-width="2.4" stroke-linecap="square"/>
+    <line x1="16" y1="21"  x2="16" y2="108" stroke="#f4efe6" stroke-width="5.5" stroke-linecap="square"/>
+    <line x1="9"  y1="110" x2="23" y2="110" stroke="#f4efe6" stroke-width="2.4" stroke-linecap="square"/>
+    <line x1="5"  y1="114" x2="27" y2="114" stroke="#f4efe6" stroke-width="3.5" stroke-linecap="square"/>
+    <!-- RIGHT COLUMN -->
+    <line x1="73" y1="14"  x2="95" y2="14"  stroke="#f4efe6" stroke-width="3.5" stroke-linecap="square"/>
+    <line x1="77" y1="19"  x2="91" y2="19"  stroke="#f4efe6" stroke-width="2.4" stroke-linecap="square"/>
+    <line x1="84" y1="21"  x2="84" y2="108" stroke="#f4efe6" stroke-width="5.5" stroke-linecap="square"/>
+    <line x1="77" y1="110" x2="91" y2="110" stroke="#f4efe6" stroke-width="2.4" stroke-linecap="square"/>
+    <line x1="73" y1="114" x2="95" y2="114" stroke="#f4efe6" stroke-width="3.5" stroke-linecap="square"/>
+    <!-- STACKED RH — heavier for legibility at 32px -->
+    <text x="50" y="61" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="900" fill="#f4efe6">R</text>
+    <line x1="30" y1="67" x2="70" y2="67" stroke="#c97a4f" stroke-width="2.4"/>
+    <text x="50" y="103" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="900" fill="#f4efe6">H</text>
+  </g>
+</svg>

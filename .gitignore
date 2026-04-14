@@ -2,6 +2,15 @@
 sales-call-script.md
 launch-punch-list.md
 
+# Logo iteration (local only)
+logo-lab.html
+animation-lab.html
+logo-current.svg
+logo-*.svg
+
+# Raw photo dump
+Rh content/
+
 # Tooling
 .claude/
 .DS_Store
