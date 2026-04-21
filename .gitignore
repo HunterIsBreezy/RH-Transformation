@@ -16,3 +16,16 @@ Rh content/
 .DS_Store
 .vercel/
 node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts.bak
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Misc
+*.tsbuildinfo
