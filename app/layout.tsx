@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter_Tight } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -59,8 +60,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${interTight.variable} dark`}>
-      <body className="font-sans bg-bg text-paper antialiased">{children}</body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#c97a4f",
+          colorBackground: "#0a0908",
+          colorInputBackground: "#14110f",
+          colorText: "#f4efe6",
+          colorTextSecondary: "#a8a098",
+          colorNeutral: "#a8a098",
+          colorInputText: "#f4efe6",
+          borderRadius: "4px",
+          fontFamily: "var(--font-inter-tight), Inter Tight, sans-serif",
+        },
+      }}
+    >
+      <html lang="en" className={`${interTight.variable} dark`}>
+        <body className="font-sans bg-bg text-paper antialiased">{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }
