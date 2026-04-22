@@ -18,7 +18,7 @@ const COACH_NAV: Item[] = [
 
 const CLIENT_NAV: Item[] = [
   { href: "/app/today", label: "Today" },
-  { href: "/app/behavior", label: "Behavior Board" },
+  { href: "/app/behavior-board", label: "Behavior Board" },
   { href: "/app/training", label: "Training" },
   { href: "/app/check-in", label: "Check-in" },
   { href: "/app/meetings", label: "Meetings" },

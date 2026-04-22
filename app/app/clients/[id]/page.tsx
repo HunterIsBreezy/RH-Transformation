@@ -7,6 +7,8 @@ import { checkIns, intakeResponses, meetings } from "@/db/schema";
 import { getClientDetail } from "@/lib/queries";
 import { Eyebrow, Display, Body } from "@/components/type";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { loadBoardForClient } from "@/components/behavior/actions";
+import { BehaviorBoard } from "@/components/behavior/BehaviorBoard";
 import { NotesField } from "./NotesField";
 
 export const metadata = { title: "Client" };
@@ -20,7 +22,7 @@ export default async function ClientDetailPage(props: {
   const detail = await getClientDetail(id);
   if (!detail) notFound();
 
-  const [intake, meetingRows, checkInRows] = await Promise.all([
+  const [intake, meetingRows, checkInRows, board] = await Promise.all([
     db
       .select()
       .from(intakeResponses)
@@ -39,6 +41,7 @@ export default async function ClientDetailPage(props: {
       .where(eq(checkIns.clientId, id))
       .orderBy(desc(checkIns.day))
       .limit(14),
+    loadBoardForClient(id),
   ]);
 
   const { user, client } = detail;
@@ -59,6 +62,20 @@ export default async function ClientDetailPage(props: {
           {client.startDate ? ` · Started ${new Date(client.startDate).toLocaleDateString()}` : null}
           {client.transcriptConsent ? " · Transcript consent signed" : " · No transcript consent"}
         </div>
+      </div>
+
+      <div className="mb-10">
+        <div className="text-[11px] uppercase tracking-eyebrow text-bone-faint mb-4">
+          Behavior board
+        </div>
+        <BehaviorBoard
+          clientId={client.id}
+          entries={board.entries}
+          resources={board.resources}
+          libraryResources={board.libraryResources}
+          templates={board.templates}
+          canEdit={true}
+        />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">

@@ -200,6 +200,7 @@ export const resources = pgTable(
     behaviorsTargeted: jsonb("behaviors_targeted").$type<string[]>().default([]).notNull(),
     coverAssetId: text("cover_asset_id"),
     authorId: uuid("author_id").references(() => users.id),
+    inLibrary: boolean("in_library").notNull().default(true),
     ...timestamps,
   },
   (t) => ({

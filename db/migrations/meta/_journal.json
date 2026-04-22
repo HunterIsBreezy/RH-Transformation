@@ -15,6 +15,13 @@
       "when": 1776894213416,
       "tag": "0001_noisy_landau",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1776900083547,
+      "tag": "0002_flashy_warlock",
+      "breakpoints": true
     }
   ]
 }

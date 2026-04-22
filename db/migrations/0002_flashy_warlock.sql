@@ -1,0 +1,1 @@
+ALTER TABLE "resources" ADD COLUMN "in_library" boolean DEFAULT true NOT NULL;
