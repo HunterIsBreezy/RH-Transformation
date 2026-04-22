@@ -59,6 +59,9 @@ export function Nav({
           >
             Testimonials
           </Link>
+          <Link href="/app" className="nav-link">
+            Portal
+          </Link>
         </div>
         <a href={calendlyUrl} target="_blank" rel="noopener noreferrer" className="nav-cta">
           Book a Call
