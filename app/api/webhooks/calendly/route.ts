@@ -7,19 +7,27 @@ import { clients, meetings, users } from "@/db/schema";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+type CalendlyScheduledEvent = {
+  uri?: string;
+  start_time?: string;
+  end_time?: string;
+};
+
+type CalendlyInvitee = {
+  uri?: string;
+  email?: string;
+  name?: string;
+  first_name?: string;
+  last_name?: string;
+  scheduled_event?: CalendlyScheduledEvent;
+  event?: string;
+};
+
 type CalendlyPayload = {
   event: string;
-  payload: {
-    event?: { uri?: string; start_time?: string; end_time?: string };
-    invitee?: {
-      uri?: string;
-      email?: string;
-      name?: string;
-      first_name?: string;
-      last_name?: string;
-      scheduled_event?: { uri?: string; start_time?: string; end_time?: string };
-    };
-    scheduled_event?: { uri?: string; start_time?: string; end_time?: string };
+  payload: CalendlyInvitee & {
+    invitee?: CalendlyInvitee;
+    scheduled_event?: CalendlyScheduledEvent;
   };
 };
 
@@ -33,13 +41,10 @@ export async function POST(req: NextRequest) {
   }
 
   const body = JSON.parse(raw) as CalendlyPayload;
-  const invitee = body.payload.invitee;
-  const scheduled =
-    body.payload.event ??
-    body.payload.scheduled_event ??
-    invitee?.scheduled_event ??
-    null;
-  const email = invitee?.email?.toLowerCase() ?? null;
+  const invitee = body.payload.invitee ?? body.payload;
+  const scheduled: CalendlyScheduledEvent | null =
+    body.payload.scheduled_event ?? invitee.scheduled_event ?? null;
+  const email = invitee.email?.toLowerCase() ?? null;
   if (!email) {
     return NextResponse.json({ error: "missing invitee email" }, { status: 400 });
   }
@@ -47,8 +52,8 @@ export async function POST(req: NextRequest) {
   switch (body.event) {
     case "invitee.created": {
       const fullName =
-        invitee?.name ??
-        [invitee?.first_name, invitee?.last_name].filter(Boolean).join(" ") ??
+        invitee.name ??
+        [invitee.first_name, invitee.last_name].filter(Boolean).join(" ") ??
         null;
 
       const user = await upsertUser(email, fullName ?? null);
@@ -72,7 +77,7 @@ export async function POST(req: NextRequest) {
             endedAt: scheduled.end_time ? new Date(scheduled.end_time) : null,
             source: "calendly",
             calendlyEventUri: eventUri,
-            calendlyInviteeUri: invitee?.uri ?? null,
+            calendlyInviteeUri: invitee.uri ?? null,
           });
         }
       }
@@ -81,7 +86,7 @@ export async function POST(req: NextRequest) {
 
     case "invitee.canceled": {
       const eventUri = scheduled?.uri ?? null;
-      const inviteeUri = invitee?.uri ?? null;
+      const inviteeUri = invitee.uri ?? null;
       if (eventUri || inviteeUri) {
         await db
           .update(meetings)
