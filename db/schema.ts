@@ -15,7 +15,9 @@ import {
 export const roleEnum = pgEnum("role", ["coach", "client"]);
 export const clientStatusEnum = pgEnum("client_status", [
   "applicant",
+  "applied",
   "scheduled",
+  "paid",
   "active",
   "graduated",
   "paused",
@@ -127,6 +129,10 @@ export const meetings = pgTable(
     kind: meetingKindEnum("kind").notNull().default("weekly"),
     scheduledAt: timestamp("scheduled_at", { withTimezone: true }).notNull(),
     endedAt: timestamp("ended_at", { withTimezone: true }),
+    canceledAt: timestamp("canceled_at", { withTimezone: true }),
+    source: text("source").notNull().default("manual"),
+    calendlyEventUri: text("calendly_event_uri"),
+    calendlyInviteeUri: text("calendly_invitee_uri"),
     zoomMeetingId: text("zoom_meeting_id"),
     zoomRecordingUrl: text("zoom_recording_url"),
     transcriptText: text("transcript_text"),
