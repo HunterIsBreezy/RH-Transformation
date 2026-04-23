@@ -265,8 +265,6 @@ function ClaudeAssist({
         }
         onApply(result, uploadedUrl);
         setResult(null);
-        setPrompt("");
-        setOpen(false);
       } catch (e) {
         setErr(e instanceof Error ? e.message : "apply failed");
       }
@@ -292,18 +290,32 @@ function ClaudeAssist({
         <button type="button" onClick={() => setOpen(false)} className="text-bone-faint hover:text-paper text-xs">×</button>
       </div>
 
-      <textarea
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        rows={3}
-        placeholder="e.g. Summarize this video and pull 5 behavior tags. Or: Write a chapter-3 summary of Atomic Habits."
-        className="w-full rounded-sm border border-line bg-bg-soft p-3 text-sm text-paper tracking-body"
-      />
+      <div>
+        <div className="text-[10px] uppercase tracking-eyebrow text-bone-faint mb-2">
+          Your prompt
+        </div>
+        <textarea
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          rows={3}
+          placeholder="e.g. Summarize this video and pull 5 behavior tags. Or: Write a chapter-3 summary of Atomic Habits."
+          className="w-full rounded-sm border border-line bg-bg-soft p-3 text-sm text-paper tracking-body"
+        />
+      </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-wrap">
         <Button type="button" onClick={ask} disabled={pending || !prompt.trim()}>
-          {pending && !result ? "Thinking…" : "Ask"}
+          {pending ? "Thinking…" : result ? "Regenerate" : "Ask"}
         </Button>
+        {result ? (
+          <button
+            type="button"
+            onClick={() => { setResult(null); setErr(null); }}
+            className="text-[11px] uppercase tracking-eyebrow text-bone hover:text-paper"
+          >
+            Clear output
+          </button>
+        ) : null}
         <span className="text-[11px] uppercase tracking-eyebrow text-bone-faint">
           Uses form fields above as context.
         </span>
@@ -313,6 +325,9 @@ function ClaudeAssist({
 
       {result ? (
         <div className="mt-2 flex flex-col gap-3 border-t border-line pt-4">
+          <div className="text-[10px] uppercase tracking-eyebrow text-copper">
+            Claude's output
+          </div>
           <div>
             <div className="text-[10px] uppercase tracking-eyebrow text-bone-faint">Suggested title</div>
             <div className="text-sm text-paper tracking-body">{result.title}</div>
@@ -352,11 +367,23 @@ function ClaudeAssist({
             Save summary as a markdown file upload (Vercel Blob)
           </label>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <Button type="button" onClick={apply} disabled={pending}>
               {pending ? "Applying…" : "Apply to form"}
             </Button>
-            <button type="button" onClick={() => setResult(null)} className="text-[11px] uppercase tracking-eyebrow text-bone hover:text-paper">
+            <button
+              type="button"
+              onClick={ask}
+              disabled={pending || !prompt.trim()}
+              className="text-[11px] uppercase tracking-eyebrow text-copper hover:text-paper disabled:opacity-50"
+            >
+              Regenerate
+            </button>
+            <button
+              type="button"
+              onClick={() => setResult(null)}
+              className="text-[11px] uppercase tracking-eyebrow text-bone hover:text-paper"
+            >
               Discard
             </button>
           </div>
