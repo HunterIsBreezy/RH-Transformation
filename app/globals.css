@@ -49,3 +49,79 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+@layer components {
+  .rh-prose {
+    color: var(--paper);
+    font-size: 16px;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+  }
+  .rh-prose > * + * { margin-top: 1.2em; }
+  .rh-prose h1, .rh-prose h2, .rh-prose h3 {
+    color: var(--paper);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+  .rh-prose h1 { font-size: 1.875rem; margin-top: 2.5rem; }
+  .rh-prose h2 {
+    font-size: 1.375rem;
+    margin-top: 2.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .rh-prose h3 { font-size: 1.125rem; margin-top: 1.75rem; }
+  .rh-prose p { color: var(--paper); }
+  .rh-prose strong { color: var(--paper); font-weight: 600; }
+  .rh-prose em { color: var(--copper); font-style: italic; }
+  .rh-prose a {
+    color: var(--copper);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--copper) 40%, transparent);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .rh-prose a:hover { color: var(--paper); text-decoration-color: var(--paper); }
+  .rh-prose ul, .rh-prose ol { padding-left: 1.25rem; color: var(--bone); }
+  .rh-prose ul > li, .rh-prose ol > li { margin-top: 0.35em; }
+  .rh-prose ul > li::marker { color: var(--copper); }
+  .rh-prose ol > li::marker { color: var(--bone-faint); }
+  .rh-prose blockquote {
+    border-left: 2px solid var(--copper);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin-left: 0;
+    color: var(--bone);
+    font-style: italic;
+  }
+  .rh-prose code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.9em;
+    background: var(--bg-elevated);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    color: var(--gold);
+  }
+  .rh-prose pre {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+  }
+  .rh-prose pre code { background: transparent; padding: 0; color: var(--paper); }
+  .rh-prose hr { border: none; border-top: 1px solid var(--line-strong); margin: 2rem 0; }
+  .rh-prose table { border-collapse: collapse; width: 100%; }
+  .rh-prose th, .rh-prose td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .rh-prose th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--bone-faint);
+    font-weight: 500;
+  }
+}

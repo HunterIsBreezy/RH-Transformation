@@ -121,7 +121,13 @@ export function ResourcesPanel({ initial }: { initial: Resource[] }) {
                   </a>
                 ) : null}
                 <div className="mt-auto pt-2 flex items-center gap-3">
-                  <button onClick={() => setEditing(r)} className="text-[11px] uppercase tracking-eyebrow text-copper hover:text-paper">
+                  <a
+                    href={`/app/resources/${r.id}`}
+                    className="text-[11px] uppercase tracking-eyebrow text-copper hover:text-paper"
+                  >
+                    View
+                  </a>
+                  <button onClick={() => setEditing(r)} className="text-[11px] uppercase tracking-eyebrow text-bone hover:text-paper">
                     Edit
                   </button>
                   <button
