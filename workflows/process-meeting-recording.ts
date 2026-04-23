@@ -8,7 +8,8 @@ import {
   downloadZoomFile,
   fetchZoomText,
   findRecordingNear,
-  vttToPlainText,
+  parseVttSegments,
+  segmentsToPlainText,
   type ZoomMeetingRecording,
 } from "@/lib/zoom";
 
@@ -124,9 +125,11 @@ async function persistRecording(
   }
 
   let transcriptText: string | null = null;
+  let transcriptSegments: ReturnType<typeof parseVttSegments> | null = null;
   if (transcriptFile) {
     const vtt = await fetchZoomText(transcriptFile.download_url);
-    transcriptText = vttToPlainText(vtt);
+    transcriptSegments = parseVttSegments(vtt);
+    transcriptText = segmentsToPlainText(transcriptSegments);
     // Keep the raw VTT in Blob for future re-processing.
     await put(`meetings/${meetingId}/transcript.vtt`, vtt, {
       access: "private",
@@ -142,6 +145,7 @@ async function persistRecording(
       zoomMeetingId: String(recording.id),
       zoomRecordingUrl: recordingUrl,
       transcriptText,
+      transcriptSegments,
       updatedAt: new Date(),
     })
     .where(eq(meetings.id, meetingId));

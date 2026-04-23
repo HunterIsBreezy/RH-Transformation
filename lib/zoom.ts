@@ -107,21 +107,121 @@ function must(key: string): string {
   return v;
 }
 
+export type TranscriptSegment = {
+  speaker: string | null;
+  text: string;
+  startMs?: number;
+};
+
 /**
- * Parses a WebVTT cue file into plain text, concatenating speaker lines.
- * Strips cue timestamps, cue IDs, and WEBVTT header.
+ * Parses a WebVTT cue file into per-speaker segments.
+ * Handles two common Zoom layouts:
+ *   (a) Inline <v Speaker Name>text</v> tags inside cue content.
+ *   (b) Cue content beginning with `Speaker Name: text` (no tags).
+ * Consecutive cues from the same speaker collapse into a single segment.
+ */
+export function parseVttSegments(vtt: string): TranscriptSegment[] {
+  const lines = vtt.split(/\r?\n/);
+  const raw: TranscriptSegment[] = [];
+
+  let cueStart: number | undefined;
+  let buffer: string[] = [];
+
+  function flush() {
+    if (buffer.length === 0) return;
+    const payload = buffer.join(" ").replace(/\s+/g, " ").trim();
+    if (payload) {
+      for (const s of splitSpeakerParts(payload)) {
+        raw.push({ speaker: s.speaker, text: s.text, startMs: cueStart });
+      }
+    }
+    buffer = [];
+    cueStart = undefined;
+  }
+
+  for (const line0 of lines) {
+    const line = line0.trim();
+    if (!line) { flush(); continue; }
+    if (line === "WEBVTT") continue;
+    if (line.startsWith("NOTE")) continue;
+    if (/^\d+$/.test(line)) continue;
+    if (line.includes("-->")) {
+      flush();
+      cueStart = vttTimestampToMs(line.split("-->")[0].trim());
+      continue;
+    }
+    buffer.push(line);
+  }
+  flush();
+
+  // Collapse consecutive segments from the same speaker.
+  const merged: TranscriptSegment[] = [];
+  for (const seg of raw) {
+    const prev = merged[merged.length - 1];
+    if (prev && prev.speaker === seg.speaker) {
+      prev.text = `${prev.text} ${seg.text}`.trim();
+    } else {
+      merged.push({ ...seg });
+    }
+  }
+  return merged;
+}
+
+function splitSpeakerParts(text: string): Array<{ speaker: string | null; text: string }> {
+  // Inline <v Speaker>body</v> — may appear multiple times per line.
+  const inline = /<v(?:\.[\w-]+)?\s+([^>]+)>([\s\S]*?)(?:<\/v>|$)/gi;
+  const matches = [...text.matchAll(inline)];
+  if (matches.length > 0) {
+    const out: Array<{ speaker: string | null; text: string }> = [];
+    for (const m of matches) {
+      const speaker = m[1]?.trim() || null;
+      const body = stripVttTags(m[2]).trim();
+      if (body) out.push({ speaker, text: body });
+    }
+    return out;
+  }
+  // "Speaker Name: body"
+  const colon = text.match(/^([A-Z][\w .'-]{0,48}):\s+(.+)$/);
+  if (colon) {
+    return [{ speaker: colon[1].trim(), text: stripVttTags(colon[2]).trim() }];
+  }
+  return [{ speaker: null, text: stripVttTags(text).trim() }];
+}
+
+function stripVttTags(s: string): string {
+  return s.replace(/<\/?[^>]+>/g, "");
+}
+
+function vttTimestampToMs(ts: string): number | undefined {
+  // e.g. 00:02:14.450 or 02:14.450
+  const parts = ts.split(/[:.]/).map(Number);
+  if (parts.some((n) => Number.isNaN(n))) return undefined;
+  if (parts.length === 4) {
+    const [h, m, s, ms] = parts;
+    return ((h * 60 + m) * 60 + s) * 1000 + ms;
+  }
+  if (parts.length === 3) {
+    const [m, s, ms] = parts;
+    return (m * 60 + s) * 1000 + ms;
+  }
+  return undefined;
+}
+
+/**
+ * Flattens parsed segments into readable plain text with speaker prefixes.
+ * Used for embedding + fallback when the UI can't render segments.
+ */
+export function segmentsToPlainText(segs: TranscriptSegment[]): string {
+  return segs
+    .map((s) => (s.speaker ? `${s.speaker}: ${s.text}` : s.text))
+    .join("\n\n")
+    .trim();
+}
+
+/**
+ * Back-compat: old callers use vttToPlainText. Delegate via segment parsing
+ * so we get speaker prefixes for free.
  */
 export function vttToPlainText(vtt: string): string {
-  const lines = vtt.split(/\r?\n/);
-  const out: string[] = [];
-  for (const raw of lines) {
-    const line = raw.trim();
-    if (!line) continue;
-    if (line === "WEBVTT") continue;
-    if (/^\d+$/.test(line)) continue;
-    if (line.includes("-->")) continue;
-    if (line.startsWith("NOTE")) continue;
-    out.push(line);
-  }
-  return out.join(" ").replace(/\s+/g, " ").trim();
+  return segmentsToPlainText(parseVttSegments(vtt));
 }

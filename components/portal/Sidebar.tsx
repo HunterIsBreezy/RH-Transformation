@@ -10,6 +10,7 @@ type Item = { href: string; label: string };
 
 const COACH_NAV: Item[] = [
   { href: "/app/roster", label: "Roster" },
+  { href: "/app/transcripts", label: "Transcripts" },
   { href: "/app/resources", label: "Resources" },
   { href: "/app/exercises", label: "Exercises" },
   { href: "/app/prescriptions", label: "Prescriptions" },

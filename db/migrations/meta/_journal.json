@@ -36,6 +36,13 @@
       "when": 1776910001607,
       "tag": "0004_freezing_omega_flight",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1776912027210,
+      "tag": "0005_omniscient_shaman",
+      "breakpoints": true
     }
   ]
 }

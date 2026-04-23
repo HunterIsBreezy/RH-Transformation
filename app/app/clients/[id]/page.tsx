@@ -146,6 +146,7 @@ export default async function ClientDetailPage(props: {
                         <TranscriptButton
                           meetingTitle={`${m.kind} · ${new Date(m.scheduledAt).toLocaleString()}`}
                           transcriptText={m.transcriptText}
+                          transcriptSegments={m.transcriptSegments}
                         />
                       ) : null}
                       <div className="text-[11px] uppercase tracking-eyebrow text-bone-faint">

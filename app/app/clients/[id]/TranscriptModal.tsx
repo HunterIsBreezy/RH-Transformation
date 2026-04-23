@@ -9,17 +9,25 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { TranscriptViewer } from "@/components/TranscriptViewer";
+import type { meetings } from "@/db/schema";
+
+type Segments = NonNullable<(typeof meetings.$inferSelect)["transcriptSegments"]>;
 
 export function TranscriptButton({
   meetingTitle,
   transcriptText,
+  transcriptSegments,
+  highlight,
 }: {
   meetingTitle: string;
   transcriptText: string | null;
+  transcriptSegments?: Segments | null;
+  highlight?: string;
 }) {
   const [open, setOpen] = useState(false);
 
-  if (!transcriptText) {
+  if (!transcriptText && !transcriptSegments) {
     return (
       <span className="text-[11px] uppercase tracking-eyebrow text-bone-faint">
         Transcript pending
@@ -39,8 +47,12 @@ export function TranscriptButton({
           <DialogTitle>{meetingTitle}</DialogTitle>
           <DialogDescription>Transcript from Zoom recording.</DialogDescription>
         </DialogHeader>
-        <div className="mt-2 overflow-auto text-sm text-paper tracking-body leading-relaxed whitespace-pre-wrap flex-1 border border-line rounded-sm p-4 bg-bg-soft">
-          {transcriptText}
+        <div className="mt-2 overflow-auto flex-1 border border-line rounded-sm p-4 bg-bg-soft">
+          <TranscriptViewer
+            segments={transcriptSegments ?? null}
+            transcriptText={transcriptText}
+            highlight={highlight}
+          />
         </div>
       </DialogContent>
     </Dialog>

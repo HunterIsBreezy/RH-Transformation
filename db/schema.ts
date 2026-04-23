@@ -136,6 +136,9 @@ export const meetings = pgTable(
     zoomMeetingId: text("zoom_meeting_id"),
     zoomRecordingUrl: text("zoom_recording_url"),
     transcriptText: text("transcript_text"),
+    transcriptSegments: jsonb("transcript_segments").$type<
+      Array<{ speaker: string | null; text: string; startMs?: number }>
+    >(),
     transcriptEmbedding: vector("transcript_embedding", { dimensions: 1536 }),
     coachNotes: text("coach_notes"),
     ...timestamps,
