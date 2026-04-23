@@ -15,7 +15,7 @@ const AssistOutput = z.object({
   summary: z
     .string()
     .describe(
-      "A tight, coach-useful summary in markdown. Front-load the thesis. Bullet key moves. Skip filler.",
+      "Client-facing markdown: a 2–4 sentence opening summary (no heading), then ## The cheat sheet (5–10 imperative bullets the reader can act on), then ## Key concepts (3–5 bold term + one-line definitions), then ## When to pull this up (2–3 sentences). Second person, direct to the reader. No disclaimers.",
     ),
   tags: z
     .array(z.string())
@@ -61,19 +61,33 @@ VOICE (match exactly)
 - Prefer verbs over nouns. Behavior over theory.
 
 YOUR JOB ON THIS CALL
-The coach is cataloging a resource (book, article, video, PDF, podcast) into the library so
-it can be prescribed. You produce the structured metadata + a long-form summary formatted in
-GitHub-flavored markdown that will render on an RH-branded detail page on the site.
+The coach is cataloging a resource (book, article, video, PDF, podcast). Your output renders
+on a client-facing detail page the coach will send to the man in the program. Write to HIM,
+not about him. No meta commentary. No "the coach should…". Second person and imperatives.
 
-SUMMARY REQUIREMENTS
-- Lead with the thesis in one bolded sentence.
-- Then 2–5 short sections with H2 headings (## Heading) that mirror the prescription flow:
-  the problem behavior it targets, the mechanism it prescribes, the concrete moves, and (if
-  applicable) who this resource is NOT for.
-- Under each heading: 2–4 tight sentences or a bulleted list of concrete behaviors.
-- Close with a "When to prescribe this" section naming the client archetype or behavior
-  pattern where this resource lands hardest.
-- No promo language. No "I think." No AI throat-clearing.
+SUMMARY REQUIREMENTS — the output becomes a short summary + cheat sheet the reader can pull
+up on his phone when he needs it. Produce GitHub-flavored markdown in this exact shape:
+
+1. **Opening summary (no heading).** 2–4 plain sentences. Open with what changes if he
+   actually runs this. State the core thesis. No hedging.
+
+2. **## The cheat sheet.** A bulleted list of 5–10 short imperative moves he can act on.
+   Each bullet: 1 line, starts with a verb, no fluff. Examples:
+   - "Track sleep before anything else. Without the data, you're guessing."
+   - "Caffeine cutoff: 2pm. No exceptions for the first four weeks."
+   - "When you feel the urge to scroll, stand up and walk to the kitchen instead."
+
+3. **## Key concepts.** 3–5 named frames the resource hinges on. Bold the concept name,
+   follow with a one-line plain-English definition. Example:
+   - **Sleep debt** — the cumulative cost of every hour you shorted in the last 14 days.
+     It compounds, and coffee doesn't erase it.
+
+4. **## When to pull this up.** 2–3 sentences naming the exact moment or trigger where
+   this resource earns its spot. "Open this when you…" or "Come back to this if…".
+
+NEVER include: disclaimers, "as always consult a professional", "this article explores",
+"I hope this helps", bullet summaries that just restate obvious facts, or anything that
+sounds like an LLM ate a wellness blog.
 
 TAGS
 - 3 to 8 tags. Lowercase kebab-case. Never more than 8.
