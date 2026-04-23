@@ -34,6 +34,12 @@ export type ScheduleDetail = {
   mediaUrl?: string | null;
   coachNotes?: string | null;
   category?: string | null;
+  actual?: {
+    sets?: number | null;
+    reps?: string | null;
+    weight?: string | null;
+    note?: string | null;
+  } | null;
 };
 
 export async function scheduleExerciseDrop(input: {
@@ -127,13 +133,60 @@ export async function toggleBlockComplete(blockId: string) {
   if (!block) throw new Error("not found");
   await resolveAllowedClientId(block.clientId);
 
+  const nextCompleted = block.completedAt ? null : new Date();
+  const nextDetail = (block.detail ?? {}) as ScheduleDetail;
+  // Clear stored actuals when the client un-completes a block.
+  const cleared: ScheduleDetail = nextCompleted ? nextDetail : { ...nextDetail, actual: null };
+
   await db
     .update(clientSchedule)
     .set({
-      completedAt: block.completedAt ? null : new Date(),
+      completedAt: nextCompleted,
+      detail: cleared,
       updatedAt: new Date(),
     })
     .where(eq(clientSchedule.id, blockId));
+
+  revalidatePath(`/app/training`);
+  revalidatePath(`/app/clients/${block.clientId}/program-builder`);
+}
+
+export async function logBlockActuals(input: {
+  blockId: string;
+  sets: number | null;
+  reps: string | null;
+  weight: string | null;
+  note: string | null;
+}) {
+  const cu = await currentUser();
+  if (!cu) throw new Error("unauthenticated");
+  const [block] = await db
+    .select()
+    .from(clientSchedule)
+    .where(eq(clientSchedule.id, input.blockId))
+    .limit(1);
+  if (!block) throw new Error("not found");
+  await resolveAllowedClientId(block.clientId);
+
+  const current = (block.detail ?? {}) as ScheduleDetail;
+  const nextDetail: ScheduleDetail = {
+    ...current,
+    actual: {
+      sets: input.sets,
+      reps: input.reps,
+      weight: input.weight,
+      note: input.note,
+    },
+  };
+
+  await db
+    .update(clientSchedule)
+    .set({
+      detail: nextDetail,
+      completedAt: block.completedAt ?? new Date(),
+      updatedAt: new Date(),
+    })
+    .where(eq(clientSchedule.id, input.blockId));
 
   revalidatePath(`/app/training`);
   revalidatePath(`/app/clients/${block.clientId}/program-builder`);

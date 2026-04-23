@@ -10,6 +10,7 @@ import {
   type DragEndEvent,
 } from "@dnd-kit/core";
 import { DayCell } from "@/components/training/DayCell";
+import { LogActualsDialog } from "@/components/training/LogActualsDialog";
 import { Eyebrow, Display, Body } from "@/components/type";
 import { moveScheduleBlock, toggleBlockComplete } from "./actions";
 import { DAY_LABELS, addWeeks, currentWeekStart, isPastWeek, weekLabel } from "@/lib/week";
@@ -32,6 +33,7 @@ export function TrainingWeek({
   const [, startTransition] = useTransition();
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }));
   const [viewWeek, setViewWeek] = useState(weekStartISO);
+  const [activeBlock, setActiveBlock] = useState<Block | null>(null);
 
   const weekStart = new Date(viewWeek);
   const readOnly = isPastWeek(weekStart);
@@ -129,10 +131,18 @@ export function TrainingWeek({
                 day={d}
                 blocks={byDay.get(d) ?? []}
                 disabled={readOnly}
-                onToggleComplete={(id) => startTransition(async () => {
-                  await toggleBlockComplete(id);
-                  router.refresh();
-                })}
+                onToggleComplete={(id) => {
+                  const block = blocks.find((b) => b.id === id);
+                  if (!block) return;
+                  if (block.completedAt) {
+                    startTransition(async () => {
+                      await toggleBlockComplete(id);
+                      router.refresh();
+                    });
+                  } else {
+                    setActiveBlock(block);
+                  }
+                }}
               />
             </div>
           ))}
@@ -144,6 +154,12 @@ export function TrainingWeek({
           <Body size="sm" muted tight>Your coaches haven&apos;t built this week yet.</Body>
         </div>
       ) : null}
+
+      <LogActualsDialog
+        block={activeBlock}
+        open={!!activeBlock}
+        onClose={() => setActiveBlock(null)}
+      />
     </div>
   );
 }

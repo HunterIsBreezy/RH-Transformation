@@ -165,18 +165,15 @@ export function ResourceForm({
         url={url ?? ""}
         bodyMd={bodyMd ?? ""}
         onApply={(out, uploadedUrl) => {
-          console.log("[onApply] received", out, "uploadedUrl:", uploadedUrl);
-          if (out.title) { console.log("[onApply] setTitle:", out.title); setTitle(out.title); }
-          if (out.author) { console.log("[onApply] setAuthor:", out.author); setAuthor(out.author); }
-          console.log("[onApply] setBodyMd len:", out.summary.length);
+          if (out.title) setTitle(out.title);
+          if (out.author) setAuthor(out.author);
           setBodyMd(out.summary);
           const newTags = Array.from(new Set([
             ...tagsStr.split(",").map((t) => t.trim()).filter(Boolean),
             ...out.tags,
           ]));
-          console.log("[onApply] setTagsStr:", newTags.join(", "));
           setTagsStr(newTags.join(", "));
-          if (uploadedUrl && !url) { console.log("[onApply] setUrl:", uploadedUrl); setUrl(uploadedUrl); }
+          if (uploadedUrl && !url) setUrl(uploadedUrl);
         }}
       />
 
@@ -231,6 +228,7 @@ function ClaudeAssist({
   const [result, setResult] = useState<AssistOutputT | null>(null);
   const [saveAsFile, setSaveAsFile] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const [applied, setApplied] = useState(false);
   const [pending, startTransition] = useTransition();
 
   function ask() {
@@ -256,24 +254,22 @@ function ClaudeAssist({
 
   async function apply() {
     if (!result) return;
-    console.log("[apply] result:", result);
-    console.log("[apply] saveAsFile:", saveAsFile);
     setErr(null);
+    setApplied(false);
     try {
       let uploadedUrl: string | undefined;
       if (saveAsFile) {
-        console.log("[apply] uploading summary as file...");
         const { url: u } = await saveClaudeAsFile({
           title: result.title || title || "resource",
           markdown: result.summary,
         });
         uploadedUrl = u;
-        console.log("[apply] uploaded:", uploadedUrl);
       }
-      console.log("[apply] calling onApply");
       onApply(result, uploadedUrl);
-      console.log("[apply] onApply returned");
-      setResult(null);
+      setApplied(true);
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } catch (e) {
       console.error("[apply] error:", e);
       setErr(e instanceof Error ? e.message : "apply failed");
@@ -376,9 +372,15 @@ function ClaudeAssist({
             Save summary as a markdown file upload (Vercel Blob)
           </label>
 
+          {applied ? (
+            <div className="rounded-sm border border-copper bg-copper-subtle px-3 py-2 text-[11px] uppercase tracking-eyebrow text-copper">
+              ✓ Applied to the form above. Scroll up to review.
+            </div>
+          ) : null}
+
           <div className="flex items-center gap-3 flex-wrap">
             <Button type="button" onClick={apply} disabled={pending}>
-              {pending ? "Applying…" : "Apply to form"}
+              {pending ? "Applying…" : applied ? "Re-apply" : "Apply to form"}
             </Button>
             <button
               type="button"

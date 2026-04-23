@@ -12,6 +12,7 @@ import { BehaviorBoard } from "@/components/behavior/BehaviorBoard";
 import { NotesField } from "./NotesField";
 import { StatusEditor } from "./StatusEditor";
 import { TranscriptButton } from "./TranscriptModal";
+import { IntakeDisplay } from "./IntakeDisplay";
 
 export const metadata = { title: "Client" };
 
@@ -103,13 +104,7 @@ export default async function ClientDetailPage(props: {
         <Card>
           <CardHeader><CardTitle>Intake</CardTitle></CardHeader>
           <CardContent>
-            {intakePayload ? (
-              <pre className="text-xs text-bone whitespace-pre-wrap tracking-body leading-relaxed">
-                {JSON.stringify(intakePayload, null, 2)}
-              </pre>
-            ) : (
-              <Body size="sm" muted tight>No intake on record yet.</Body>
-            )}
+            <IntakeDisplay payload={intakePayload} />
           </CardContent>
         </Card>
 
