@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { loadBoardForClient } from "@/components/behavior/actions";
 import { BehaviorBoard } from "@/components/behavior/BehaviorBoard";
 import { NotesField } from "./NotesField";
+import { StatusEditor } from "./StatusEditor";
 
 export const metadata = { title: "Client" };
 
@@ -70,6 +71,17 @@ export default async function ClientDetailPage(props: {
           {client.startDate ? ` · Started ${new Date(client.startDate).toLocaleDateString()}` : null}
           {client.transcriptConsent ? " · Transcript consent signed" : " · No transcript consent"}
         </div>
+      </div>
+
+      <div className="rounded-sm border border-line bg-bg-card p-4 mb-10">
+        <div className="text-[11px] uppercase tracking-eyebrow text-bone-faint mb-3">
+          Status
+        </div>
+        <StatusEditor
+          clientId={client.id}
+          initial={client.status}
+          initialStart={client.startDate ? new Date(client.startDate).toISOString() : null}
+        />
       </div>
 
       <div className="mb-10">
