@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toDisplayUrl } from "@/lib/blob";
 import type { resources } from "@/db/schema";
 
 type Resource = typeof resources.$inferSelect;
@@ -43,6 +44,7 @@ export function ResourceChip({
 function ResourcePreview({ resource }: { resource: Resource }) {
   const url = resource.url ?? "";
   const embed = toEmbedUrl(url);
+  const display = toDisplayUrl(url) ?? "";
 
   return (
     <div className="mt-2 rounded-sm border border-line bg-bg-soft p-3 max-w-full">
@@ -51,9 +53,9 @@ function ResourcePreview({ resource }: { resource: Resource }) {
           <iframe src={embed} title={resource.title} className="w-full h-full rounded-sm" allowFullScreen />
         </div>
       ) : isPdf(url) ? (
-        <iframe src={url} title={resource.title} className="w-full h-[480px] rounded-sm bg-bg-card" />
+        <iframe src={display} title={resource.title} className="w-full h-[480px] rounded-sm bg-bg-card" />
       ) : url ? (
-        <a href={url} target="_blank" rel="noopener noreferrer" className="text-sm text-copper hover:text-paper break-all">
+        <a href={display} target="_blank" rel="noopener noreferrer" className="text-sm text-copper hover:text-paper break-all">
           Open {url}
         </a>
       ) : null}

@@ -80,7 +80,7 @@ export async function uploadResourceBlob(formData: FormData) {
     throw new Error("BLOB_READ_WRITE_TOKEN not set — provision Vercel Blob first");
   }
   const blob = await put(`resources/${Date.now()}-${file.name}`, file, {
-    access: "public",
+    access: "private",
     token: process.env.BLOB_READ_WRITE_TOKEN,
   });
   return { url: blob.url, pathname: blob.pathname };

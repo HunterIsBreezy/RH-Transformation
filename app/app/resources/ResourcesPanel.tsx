@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { ResourceForm } from "./ResourceForm";
 import { deleteResource } from "./actions";
+import { isBlobUrl } from "@/lib/blob";
 import type { resources } from "@/db/schema";
 
 type Resource = typeof resources.$inferSelect;
@@ -111,14 +112,9 @@ export function ResourcesPanel({ initial }: { initial: Resource[] }) {
                   </div>
                 ) : null}
                 {r.url ? (
-                  <a
-                    href={r.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-copper hover:text-paper break-all"
-                  >
-                    {new URL(r.url).hostname}
-                  </a>
+                  <span className="text-xs text-copper break-all">
+                    {isBlobUrl(r.url) ? "Uploaded file" : new URL(r.url).hostname}
+                  </span>
                 ) : null}
                 <div className="mt-auto pt-2 flex items-center gap-3">
                   <a

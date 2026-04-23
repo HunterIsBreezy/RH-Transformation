@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/db";
 import { resources } from "@/db/schema";
 import { Eyebrow, Display, Body } from "@/components/type";
+import { toDisplayUrl } from "@/lib/blob";
 
 export const metadata = { title: "Resource" };
 
@@ -42,7 +43,7 @@ export default async function ResourceViewPage(props: {
         ) : null}
         {r.url ? (
           <a
-            href={r.url}
+            href={toDisplayUrl(r.url) ?? r.url}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block mt-4 text-[11px] uppercase tracking-eyebrow text-copper hover:text-paper border-b border-copper/50 hover:border-paper"

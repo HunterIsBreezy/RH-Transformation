@@ -157,7 +157,7 @@ export async function saveClaudeAsFile(args: {
     .slice(0, 60) || "resource";
   const filename = `resources/${Date.now()}-${safe}.md`;
   const blob = await put(filename, args.markdown, {
-    access: "public",
+    access: "private",
     contentType: "text/markdown; charset=utf-8",
     token: process.env.BLOB_READ_WRITE_TOKEN,
   });

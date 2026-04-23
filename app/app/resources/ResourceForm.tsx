@@ -165,15 +165,18 @@ export function ResourceForm({
         url={url ?? ""}
         bodyMd={bodyMd ?? ""}
         onApply={(out, uploadedUrl) => {
-          if (out.title) setTitle(out.title);
-          if (out.author) setAuthor(out.author);
+          console.log("[onApply] received", out, "uploadedUrl:", uploadedUrl);
+          if (out.title) { console.log("[onApply] setTitle:", out.title); setTitle(out.title); }
+          if (out.author) { console.log("[onApply] setAuthor:", out.author); setAuthor(out.author); }
+          console.log("[onApply] setBodyMd len:", out.summary.length);
           setBodyMd(out.summary);
           const newTags = Array.from(new Set([
             ...tagsStr.split(",").map((t) => t.trim()).filter(Boolean),
             ...out.tags,
           ]));
+          console.log("[onApply] setTagsStr:", newTags.join(", "));
           setTagsStr(newTags.join(", "));
-          if (uploadedUrl && !url) setUrl(uploadedUrl);
+          if (uploadedUrl && !url) { console.log("[onApply] setUrl:", uploadedUrl); setUrl(uploadedUrl); }
         }}
       />
 
@@ -251,24 +254,30 @@ function ClaudeAssist({
     });
   }
 
-  function apply() {
+  async function apply() {
     if (!result) return;
-    startTransition(async () => {
-      try {
-        let uploadedUrl: string | undefined;
-        if (saveAsFile) {
-          const { url: u } = await saveClaudeAsFile({
-            title: result.title || title || "resource",
-            markdown: result.summary,
-          });
-          uploadedUrl = u;
-        }
-        onApply(result, uploadedUrl);
-        setResult(null);
-      } catch (e) {
-        setErr(e instanceof Error ? e.message : "apply failed");
+    console.log("[apply] result:", result);
+    console.log("[apply] saveAsFile:", saveAsFile);
+    setErr(null);
+    try {
+      let uploadedUrl: string | undefined;
+      if (saveAsFile) {
+        console.log("[apply] uploading summary as file...");
+        const { url: u } = await saveClaudeAsFile({
+          title: result.title || title || "resource",
+          markdown: result.summary,
+        });
+        uploadedUrl = u;
+        console.log("[apply] uploaded:", uploadedUrl);
       }
-    });
+      console.log("[apply] calling onApply");
+      onApply(result, uploadedUrl);
+      console.log("[apply] onApply returned");
+      setResult(null);
+    } catch (e) {
+      console.error("[apply] error:", e);
+      setErr(e instanceof Error ? e.message : "apply failed");
+    }
   }
 
   if (!open) {
