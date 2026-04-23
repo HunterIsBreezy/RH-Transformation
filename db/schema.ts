@@ -76,7 +76,7 @@ export const clients = pgTable(
     cohortLabel: text("cohort_label"),
     startDate: timestamp("start_date", { withTimezone: true }),
     endDate: timestamp("end_date", { withTimezone: true }),
-    transcriptConsent: boolean("transcript_consent").notNull().default(false),
+    transcriptConsent: boolean("transcript_consent").notNull().default(true),
     consentSignedAt: timestamp("consent_signed_at", { withTimezone: true }),
     ...timestamps,
   },

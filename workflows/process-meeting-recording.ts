@@ -23,7 +23,8 @@ export async function processMeetingRecording(meetingId: string) {
 
   const ctx = await loadMeetingContext(meetingId);
   if (!ctx) return { skipped: "meeting not found" };
-  if (!ctx.consented) return { skipped: "no transcript consent" };
+  // Recording consent is covered by the program contract; transcriptConsent acts as an opt-out flag.
+  if (ctx.consented === false) return { skipped: "client opted out of transcripts" };
 
   // Sleep until 1h past scheduled start — recording/transcript typically ready within 15-30m after.
   const wakeAt = new Date(new Date(ctx.scheduledAt).getTime() + 60 * 60_000);
