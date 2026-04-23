@@ -1,15 +1,13 @@
+import { desc } from "drizzle-orm";
 import { requireRole } from "@/lib/auth";
-import { Placeholder } from "@/components/portal/Placeholder";
+import { db } from "@/db";
+import { exercises } from "@/db/schema";
+import { ExercisesPanel } from "./ExercisesPanel";
 
 export const metadata = { title: "Exercises" };
 
 export default async function ExercisesPage() {
   await requireRole("coach");
-  return (
-    <Placeholder eyebrow="Coach · Exercises" title="The movement library, curated.">
-      Every exercise Rylan has programmed, with demo clips, cues, and default set/rep ranges.
-      Drag an exercise into a block template or drop it straight onto a client&apos;s week —
-      with or without saving it back to the library.
-    </Placeholder>
-  );
+  const rows = await db.select().from(exercises).orderBy(desc(exercises.createdAt));
+  return <ExercisesPanel initial={rows} />;
 }

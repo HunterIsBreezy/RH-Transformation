@@ -49,9 +49,17 @@ export default async function ClientDetailPage(props: {
 
   return (
     <div className="max-w-6xl">
-      <Link href="/app/roster" className="text-[11px] uppercase tracking-eyebrow text-bone-faint hover:text-copper">
-        ← Roster
-      </Link>
+      <div className="flex items-center justify-between">
+        <Link href="/app/roster" className="text-[11px] uppercase tracking-eyebrow text-bone-faint hover:text-copper">
+          ← Roster
+        </Link>
+        <Link
+          href={`/app/clients/${id}/program-builder`}
+          className="text-[11px] uppercase tracking-eyebrow text-copper hover:text-paper"
+        >
+          Program builder →
+        </Link>
+      </div>
       <div className="mt-6 mb-10">
         <Eyebrow wide className="text-copper">Client</Eyebrow>
         <Display as="h1" size="md" tight className="mt-4">
