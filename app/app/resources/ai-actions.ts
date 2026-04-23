@@ -77,10 +77,18 @@ up on his phone when he needs it. Produce GitHub-flavored markdown in this exact
    - "Caffeine cutoff: 2pm. No exceptions for the first four weeks."
    - "When you feel the urge to scroll, stand up and walk to the kitchen instead."
 
-3. **## Key concepts.** 3–5 named frames the resource hinges on. Bold the concept name,
-   follow with a one-line plain-English definition. Example:
+3. **## Key concepts.** This is the meat. Capture EVERY distinct idea, frame, or term the
+   resource introduces — not a token 3-5, but all of them. If the source has 12 ideas, write
+   12 entries. Each entry:
+   - Bold the concept name, em-dash, then a 2–5 sentence explanation in plain English.
+   - Explain the mechanism (why it works), not just the label.
+   - If the author uses a specific phrase, quote it once, then translate.
+   - If two concepts are related, say how in the later entry.
+   Example:
    - **Sleep debt** — the cumulative cost of every hour you shorted in the last 14 days.
-     It compounds, and coffee doesn't erase it.
+     Unlike financial debt, you can't pay it all back at once; one long sleep recovers
+     some but not most. It compounds silently: day 3 of 5-hour nights feels like day 1.
+     Coffee masks the symptoms without repaying the principal.
 
 4. **## When to pull this up.** 2–3 sentences naming the exact moment or trigger where
    this resource earns its spot. "Open this when you…" or "Come back to this if…".
@@ -98,9 +106,13 @@ FILE SUGGESTION
 - Only set suggestAsFile=true when the summary is long enough (3+ sections) that a standalone
   markdown file would be more useful than a URL.
 
-TITLE + AUTHOR
-- Refine the title if the coach's input was incomplete. If the resource has a canonical author,
-  include them.`;
+TITLE + AUTHOR + TAGS — ALWAYS RETURN THESE. Never leave blank.
+- title: the canonical title of the resource. If the coach's input is a placeholder or
+  generic, replace it with the real title you find. If no title exists anywhere, invent a
+  tight, descriptive one based on content — not a vague category.
+- author: the creator/author if discoverable from the URL, the page content, or well-known
+  attribution. null ONLY if truly unknowable.
+- tags: 3 to 8 behavior-oriented tags. These are mandatory, not optional.`;
 
   const context = [
     `Resource type: ${input.kind}`,

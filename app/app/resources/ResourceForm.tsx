@@ -165,8 +165,8 @@ export function ResourceForm({
         url={url ?? ""}
         bodyMd={bodyMd ?? ""}
         onApply={(out, uploadedUrl) => {
-          if (out.title && !title) setTitle(out.title);
-          if (out.author && !author) setAuthor(out.author);
+          if (out.title) setTitle(out.title);
+          if (out.author) setAuthor(out.author);
           setBodyMd(out.summary);
           const newTags = Array.from(new Set([
             ...tagsStr.split(",").map((t) => t.trim()).filter(Boolean),
