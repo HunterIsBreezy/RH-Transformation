@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { and, eq } from "drizzle-orm";
+import { start } from "workflow/api";
 import { db } from "@/db";
 import { clients, meetings, users } from "@/db/schema";
+import { processMeetingRecording } from "@/workflows/process-meeting-recording";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -69,16 +71,24 @@ export async function POST(req: NextRequest) {
               .limit(1)
           : [];
         if (existing.length === 0) {
-          await db.insert(meetings).values({
-            clientId: client.id,
-            coachId: user.id,
-            kind: "discovery",
-            scheduledAt: new Date(scheduled.start_time),
-            endedAt: scheduled.end_time ? new Date(scheduled.end_time) : null,
-            source: "calendly",
-            calendlyEventUri: eventUri,
-            calendlyInviteeUri: invitee.uri ?? null,
-          });
+          const [created] = await db
+            .insert(meetings)
+            .values({
+              clientId: client.id,
+              coachId: user.id,
+              kind: "discovery",
+              scheduledAt: new Date(scheduled.start_time),
+              endedAt: scheduled.end_time ? new Date(scheduled.end_time) : null,
+              source: "calendly",
+              calendlyEventUri: eventUri,
+              calendlyInviteeUri: invitee.uri ?? null,
+            })
+            .returning({ id: meetings.id });
+          try {
+            await start(processMeetingRecording, [created.id]);
+          } catch (e) {
+            console.warn("[calendly] failed to start recording workflow", e);
+          }
         }
       }
       break;

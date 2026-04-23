@@ -11,6 +11,7 @@ import { loadBoardForClient } from "@/components/behavior/actions";
 import { BehaviorBoard } from "@/components/behavior/BehaviorBoard";
 import { NotesField } from "./NotesField";
 import { StatusEditor } from "./StatusEditor";
+import { TranscriptButton } from "./TranscriptModal";
 
 export const metadata = { title: "Client" };
 
@@ -145,12 +146,20 @@ export default async function ClientDetailPage(props: {
                         {m.kind} · {m.source}
                       </div>
                     </div>
-                    <div className="text-[11px] uppercase tracking-eyebrow text-bone-faint">
-                      {m.canceledAt
-                        ? "Canceled"
-                        : m.endedAt
-                          ? "Completed"
-                          : "Scheduled"}
+                    <div className="flex items-center gap-4">
+                      {new Date(m.scheduledAt).getTime() < Date.now() && !m.canceledAt ? (
+                        <TranscriptButton
+                          meetingTitle={`${m.kind} · ${new Date(m.scheduledAt).toLocaleString()}`}
+                          transcriptText={m.transcriptText}
+                        />
+                      ) : null}
+                      <div className="text-[11px] uppercase tracking-eyebrow text-bone-faint">
+                        {m.canceledAt
+                          ? "Canceled"
+                          : m.endedAt
+                            ? "Completed"
+                            : "Scheduled"}
+                      </div>
                     </div>
                   </li>
                 ))}

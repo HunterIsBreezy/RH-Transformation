@@ -35,6 +35,7 @@
     "remark-gfm": "^4.0.1",
     "stripe": "^22.0.2",
     "tailwind-merge": "^2.6.0",
+    "workflow": "^4.2.4",
     "zod": "^4.3.6"
   },
   "devDependencies": {
